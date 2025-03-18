@@ -1,0 +1,49 @@
+title: MUDE
+author: MUDE Teachers and the Student Army, built with <a href="https://teachbooks.tudelft.nl/">TeachBooks</a> and <a href="https://jupyterbook.org/">Jupyter Book</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener noreferrer"">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt=""></a>
+copyright: "2024"
+logo: _static/MUDE_Logo-small.png
+
+execute:
+  execute_notebooks: "off"
+
+only_build_toc_files: true
+
+sphinx:
+  config:
+    patch_config:
+      disabled-patches: []
+    html_show_copyright: false
+    html_last_updated_fmt: '%B %-d, %Y'
+    html_js_files:
+    - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
+    thebe_config:
+      use_thebe_lite: true
+      exclude_patterns: []
+      # exclude_patterns: ["**/_*.yml", "**/*.md", "**/*.ipynb", "**/*.zip", "**.gif", "**/*.jpg", "**/*.tif", "**/*.shp", "**/*.pickle", "**/*.geojson"]
+    html_theme_options:
+      repository_url: "https://gitlab.tudelft.nl/mude/book"
+      use_issues_button : true
+      # START REMOVE-FROM-PUBLISH
+      announcement: "<p>This is the draft book. The published version is at <a href='https://mude.citg.tudelft.nl/book' style='color: cyan;'>mude.citg.tudelft.nl/book</a></p>"
+      # END REMOVE-FROM-PUBLISH
+      launch_buttons:
+        thebe: true
+    bibtex_default_style: myapastyle
+    bibtex_reference_style: author_year_round
+  local_extensions:
+    apastyle: _ext/
+    bracket_citation_style: _ext/
+  extra_extensions:
+    - sphinx_inline_tabs
+    - sphinx_grasple
+    - sphinx.ext.imgconverter
+    - download_link_replacer
+    - jupyterbook_patches
+    - sphinx.ext.extlinks
+    - sphinx_image_inverter
+
+bibtex_bibfiles:
+  - _bibliography/references.bib
+
+html:
+  use_multitoc_numbering: false

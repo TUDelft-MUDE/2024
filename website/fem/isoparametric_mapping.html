@@ -1,0 +1,1057 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>2.8. Isoparametric mapping &#8212; MUDE</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/code.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/grasple-exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/image_dark_mode.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_admonition_style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_dropdown_style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_code_header_style.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script src="../_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script defer="defer" src="../_static/refresh.js"></script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script defer="defer" src="../_static/sphinx-thebe-lite.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'fem/isoparametric_mapping';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/refresh.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Signal Processing" href="../signal/intro.html" />
+    <link rel="prev" title="2.7. Poisson equation in 2D" href="poisson2d.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="February 19, 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p>This is the draft book. The published version is at <a href='https://mude.citg.tudelft.nl/book' style='color: cyan;'>mude.citg.tudelft.nl/book</a></p></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/MUDE_Logo-small.png" class="logo__image only-light" alt="MUDE - Home"/>
+    <script>document.write(`<img src="../_static/MUDE_Logo-small.png" class="logo__image only-dark" alt="MUDE - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Q1 Topics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modelling/overview.html">1. Modelling Concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/classification.html">1.1. Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/decisions.html">1.2. Decisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/validate_verify.html">1.3. Calibration, Validation &amp; Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/gof.html">1.4. Goodness of Fit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../propagation_uncertainty/overview.html">2. Propagation of Uncertainty</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/00a_CovCorr.html">2.1. Random vectors, covariance and correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/00b_MultivariateNormal.html">2.2. Multivariate normal distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/uncertainty.html">2.3. Uncertainty Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/01_ErrorPropagation.html">2.4. Mean and variance propagation laws</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/02_LinearPropagation.html">2.5. Linear propagation laws of mean and covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../observation_theory/overview.html">3. Observation theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/01_Introduction.html">3.1. Introduction</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/02_LeastSquares.html">3.2. Least-squares estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/02_LeastSquares_NB.html">Notebook exercise: fitting different models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/03_WeightedLSQ.html">3.3. Weighted least-squares estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/03_Notebook_WLS.html">Notebook exercise: playing with the weights</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/04_BLUE.html">3.4. Best linear unbiased estimation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/05_Precision.html">3.5. Precision and confidence intervals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/05_Notebook_ConfInt.html">Notebook: factors influencing precision</a></li>
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/06_MLE.html">3.6. Maximum Likelihood Estimation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/07_NLSQ.html">3.7. Non-linear least-squares estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/07_Notebook_NLSQ.html">Notebook Gauss-Newton iteration for a point on a circle</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/08_Testing.html">3.8. Model testing</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/09_TestingSandM.html">3.9. Hypothesis testing for Sensing and Monitoring</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/09_Notebook_Testing.html">Notebook exercise: which melting model is better?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/09_Notebook_OMT.html">Notebook exercises: is my null hypothesis good enough?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/99_NotationFormulas.html">3.10. Notation and formulas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numerical_methods/overview.html">4. Numerical Modelling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/1-revision-of-concepts.html">4.1. Revision of Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/2-derivative.html">4.2. The First Derivative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/3-fdm-introduction.html">4.3. Finite Difference Method</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../numerical_methods/4-taylor-series-expansion.html">4.4. Taylor Series Expansion</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../numerical_methods/taylor-series-exercise.html">Exercises on Taylor expansion</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/5-numerical-integration.html">4.5. Numerical Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/6-initial-value-problem-singlestep.html">4.6. Initial Value Problem for ODE: single-step methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/7-multistep_and_multistage_methods.html">4.7. Multi-step and multi-stage methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/8-boundary-value-problem.html">4.8. Boundary-value Problems: second-order ODE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/9-starting_with_PDEs.html">4.9. Treatment of Partial Differential Equations: a start</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../probability/Reminder_intro.html">5. Univariate Continuous Distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../probability/PDF_CDF.html">5.1. PDF and CDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability/empirical.html">5.2. Empirical Distributions</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../probability/Param_distr.html">5.3. Parametric distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Gaussian.html">Revisiting Gaussian distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/other_distr.html">Non-Gaussian distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Uniform.html">Uniform distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Exponential.html">Exponential distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Gumbel.html">Gumbel distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Lognormal.html">Lognormal distribution</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../probability/summary.html">Summary of parametric distributions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../probability/fitting.html">5.4. Fitting parametric distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability/moments.html">Method of moments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/MLE_1.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/GOF.html">Goodness of Fit</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability/Loc-scale.html">5.5. Parameterization of continuous distributions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multivariate/overview.html">6. Multivariate Distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/events.html">6.1. Discrete Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/variables.html">6.2. Continuous Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/gaussian.html">6.3. Multivariate Gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/nongaussian.html">6.4. Non-Gaussian Distributions</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../multivariate/design.html">6.5. Practical Applications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../multivariate/design/one-random-variable.html">One Random Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multivariate/design/two-random-variables.html">Two Random Variables</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../multivariate/design/exercise.html">Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multivariate/design/exercise_solutions.html">Solutions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/test_pyvinecopulib.html">6.6. Test <code class="docutils literal notranslate"><span class="pre">pyvinecopulib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/test_bivariate.html">6.7. Test <code class="docutils literal notranslate"><span class="pre">bivariate</span></code></a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Q2 Topics</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fvm/intro.html">1. Finite Volume Method</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/getting_started_new.html">1.1. Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/fvm.html">1.2. Finite Volume Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/advection_1.html">1.3. Advection and Diffusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/unstructured_meshes.html">1.4. Unstructured Meshes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">2. Finite Element Method</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="strong.html">2.1. Strong form of the 1D Poisson equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="weak.html">2.2. From strong to weak form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="discrete.html">2.3. From weak to discrete form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matrix.html">2.4. Finite element implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shape.html">2.5. Elements and shape functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="numerical_integration.html">2.6. Numerical integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="poisson2d.html">2.7. Poisson equation in 2D</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.8. Isoparametric mapping</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../signal/intro.html">3. Signal Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../signal/fourier_real.html">3.1. Fourier Series</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../signal/fourier_nb.html">Square Wave Example</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/fourier_complex.html">3.2. Complex Fourier Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/fourier_transf.html">3.3. Fourier Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/sampling.html">3.4. Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/dft.html">3.5. Discrete Fourier Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/spectral_est.html">3.6. Spectral Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/videos.html">3.7. Supplementary Videos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../time_series/intro.html">4. Time Series Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../time_series/components.html">4.1. Time Series components</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../time_series/exercise1.html">Components of time series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_series/noise.html">4.2. Noise and stochastic model</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../time_series/modelling.html">4.3. Time Series modelling and estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../time_series/fit_BLUE.html">Time series modelling</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_series/stationarity.html">4.4. Stationarity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_series/acf.html">4.5. Autocovariance function (ACF)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../time_series/ar.html">4.6. AutoRegressive (AR) process</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../time_series/ar_exercise.html">Fit AR(p) model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_series/forecasting.html">4.7. Time Series forecasting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../optimization/overview.html">5. Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/origins.html">5.1. Optimization origins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/general.html">5.2. Optimization basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/taxonomy.html">5.3. Taxonomy of optimization models</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../optimization/sand_and_clay.html">5.4. Example Linear Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/claysand.html">Implementation in Python</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/augmented_form.html">5.5. Augmented form of a mathematical program</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../optimization/sand_and_clay_simplex.html">5.6. SIMPLEX method</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/simplex_exercise.html">Exercise 1: Simple Exercise</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../optimization/airplane_exercise.html">Exercise 2: Cargo airplane (Optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../optimization/airplane_original.html">Cargo Airplane: Implementation in Python (Optional)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/integer_programming.html">5.7. Integer problems and solving with Branch-and-Bound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/some_constraints.html">5.8. Some constraints that take advantage of integer/binary variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/genetic_algorithm.html">5.9. Genetic Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/airlines.html">5.10. Airline Exercise (Optional)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../optimization/performance.html">5.11. Performance Considerations in LP (Optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/airlines_performance.html">Performance for airlines problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/performance_generic_LP.html">Performance for a Generic Linear Programming Problem</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../optimization/project.html">5.12. Road Network Design Problem (GA)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/Project_MILP.html">Python implementation with mixed integer linear program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/Project_GA.html">Python implementation with genetic algoritm</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../ml/overview.html">6. Machine Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ml/knn_interactive.html">6.1. Introduction and k-Nearest Neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/decision_theory_interactive.html">6.2. Decision Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/linear_models_interactive.html">6.3. Linear Basis Function Models and Regularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/ridge_sgd_interactive.html">6.4. Stochastic Gradient Descent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/nn_interactive.html">6.5. Feedforward Neural Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/review.html">6.6. Review and Quiz</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../eva/intro.html">7. Extreme Value Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/extreme.html">7.1. Concept of Extreme</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/RT.html">Return period</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/sampling.html">Sampling extremes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/BM_GEV.html">7.2. Block Maxima &amp; GEV</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/BM.html">Block Maxima</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Asymptotic.html">Asymptotic theorem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/GEV.html">GEV distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/RP_Binomial.html">RT &amp; Design Life</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/POT_GPD.html">7.3. POT &amp; GPD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/POT.html">Peak Over Threshold</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Poisson.html">Intermezzo: Poisson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Threshold.html">Parameters selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/GPD.html">Intro to GPD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/GPD2.html">Practicalities for GPD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/RP_Poisson.html">Revisiting RT</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/extra.html">7.4. Supplementary Material</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Bernoulli.html">Bernoulli and Binomial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/videos.html">EVA videos</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pd/intro.html">8. Risk Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pd/risk-analysis/overview.html">8.1. Risk Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-analysis/definition.html">Definition of Risk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-analysis/steps.html">Steps in a Risk Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-analysis/risk-curves.html">Risk Curve</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pd/risk-evaluation/overview.html">8.2. Risk Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-evaluation/decision.html">Decision Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-evaluation/cost-benefit.html">Cost Benefit Analysis</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../pd/risk-evaluation/econ-optimization.html">Economic Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../pd/risk-evaluation/example-dike-height.html">Optimization Example</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-evaluation/safety-standards.html">Safety Standards</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pd/exercises/overview.html">8.3. Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pd/exercises/exercise-fn-curve.html">FN Curve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/exercises/exercise-dam.html">Dam and River</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/exercises/exercise-paint.html">Paint System</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Programming</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_1.html">Week 1.1: Getting Started!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../programming/week_1_1/environments.html">Computers and Environments</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../external/learn-programming/book/computers.html">Computers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../external/learn-programming/book/environments.html">Computing Environments</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../programming/week_1_1/install.html">Software Installation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/install/python/miniconda.html">Install Miniconda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/common/hidden.html">Hidden Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/common/cli.html">Command Line Interface (CLI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/common/env_vars_windows.html">Environment Variables (Windows)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/install/ide/vsc.html">Visual Studio</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/ide/vsc/extensions.html">Extensions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../programming/week_1_1/files.html">Files and Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../programming/week_1_1/warmup.html">Python Warmup</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../programming/week_1_2.html">Week 1.2: Python Topics</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_3.html">Week 1.3: VS Code Live Share!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/install/ide/vsc/vs_live_share.html">Visual Studio Live Share</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_4.html">Week 1.4: Version control with Git!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/version_control/version_control.html">Version Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/install/git/intro.html">Install git</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../external/learn-programming/book/workflows/git/intro.html">Git workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/workflows/git/github.html">Git on GitHub</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/commits_remote.html">Making Commits to the Remote Repository (Web IDE)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/workflows/git/vscode.html">Git in VS code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/cloning.html">Cloning a Repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/commits_local.html">Making Commits to the Local Repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/fetch_pull.html">Fetch and Pull from the Remote Repository</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_5.html">Week 1.5: Collaboration with Git!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/workflows/git/branch_merge.html">Branching and merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/workflows/git/forking.html">Forking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/workflows/git/merge_conflicts.html">Merge conflicts</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_6.html">Week 1.6: Errors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/error_types.html">Error Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/traceback.html">The Python Traceback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/raise_errors.html">Raising errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/handling_errors.html">Handling Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/asserts.html">Assertions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_7.html">Week 1.7: OOP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/python/oop/classes.html">Classes and Object-Oriented Programming in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_8.html">Week 1.8: SymPy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/08/sympy.html">SymPy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimization/gurobi.html">Week 2.4: Gurobi installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamental Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_01a_PreMath.html">1. Vectors and matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_01b_PreMath.html">2. Vector spaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_01c_PreMath.html">3. System of linear equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_02_PreMath.html">4. Multivariate differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_03_PreMath.html">5. Taylor series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/prob-background.html">6. Probability axioms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/prob-rv.html">7. Random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_04_MeanVar.html">8. Expectation (mean) and variance</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fundamentals/prob_tables/overview.html">9. Probability Tables</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fundamentals/prob_tables/normal.html">9.1. Normal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fundamentals/prob_tables/chi2.html">9.2. Chi-Squared</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../probability/python.html">10. Probability in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/eemc-stuff.html">11. Additional topics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits and License</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://gitlab.tudelft.nl/mude/book/-/issues/new?issue[title]=Issue%20on%20page%20%2Ffem/isoparametric_mapping.html&issue[description]=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/fem/isoparametric_mapping.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Isoparametric mapping</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isoparametric-mapping-on-a-3-node-line-element">Isoparametric mapping on a 3-node line element</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reference-element">The reference element</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements-for-the-mapping">Requirements for the mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-mapping-is-constructed">How the mapping is constructed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-jacobian">The Jacobian</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isoparametric-mapping-in-higher-dimensions">Isoparametric mapping in higher dimensions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p><span class="math notranslate nohighlight">\(\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}\)</span>
+<span class="math notranslate nohighlight">\(\newcommand{\hpder}[2]{\displaystyle\frac{\partial #1}{\partial #2}}\)</span></p>
+<section class="tex2jax_ignore mathjax_ignore" id="isoparametric-mapping">
+<h1><span class="section-number">2.8. </span>Isoparametric mapping<a class="headerlink" href="#isoparametric-mapping" title="Permalink to this heading">#</a></h1>
+<div class="tip admonition">
+<p class="admonition-title">MUDE exam information</p>
+<p>The contents of this page are <em>not</em> part of the MUDE exam. It is included in the textbook to provide additional information about the finite element method.</p>
+</div>
+<p>After introducing the first 2D finite element formulations, it is necessary to give some more attention to how finite element matrices are in practice evaluated. We have not given much attention to the formulation of shape functions and numerical integration. In Chapter 1 you have seen a simple 1D implementation with linear elements, where definition of shape functions and evaluation of element integrals is relatively straightforward. In general, for 2D or 3D elements, particularly when unstructured meshes need to be supported, this becomes more complicated. Most popular finite element codes make use of the same technique that relates to the definition of integration schemes and the definition of the shape functions, this technique is called <em>isoparametric mapping</em>.</p>
+<p>The basic motivation is that we want to define shape functions and the integration scheme on a so-called <em>reference element</em> and that we want to use this same definition of shape functions and integration scheme for any element in a mesh, irrespective of its position and orientation.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/C_DtidjOPB4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><section id="isoparametric-mapping-on-a-3-node-line-element">
+<h2>Isoparametric mapping on a 3-node line element<a class="headerlink" href="#isoparametric-mapping-on-a-3-node-line-element" title="Permalink to this heading">#</a></h2>
+<p>We will start illustrating the principle of isoparametric mapping with a 3-node line element.
+In principle, shape functions can be defined globally. For instance for the quadratic line element in 1D, we can state that all shape functions should have the form of a quadratic polynomial</p>
+<div class="math notranslate nohighlight">
+\[
+N_i(x) = a_ix^2 + b_ix + c_i
+\]</div>
+<p>with coefficients <span class="math notranslate nohighlight">\(a_i\)</span>, <span class="math notranslate nohighlight">\(b_i\)</span> and <span class="math notranslate nohighlight">\(c_i\)</span>, where <span class="math notranslate nohighlight">\(i\)</span> refers to the node number the shape function is associated with. We know <span class="math notranslate nohighlight">\(N_i\)</span> should be equal to 1 at node <span class="math notranslate nohighlight">\(i\)</span> and equal to 0 at the other two nodes. Then, if we have an element with three nodes with certain coordinates, that gives three equations for every shape function, which can be solved for the three coefficients. However, in practice <span class="math notranslate nohighlight">\(N_i(x)\)</span> is not explicitly defined in implementations of the finite element method. The shape functions are defined instead on a reference element, which is the same for all elements in the mesh.</p>
+<section id="the-reference-element">
+<h3>The reference element<a class="headerlink" href="#the-reference-element" title="Permalink to this heading">#</a></h3>
+<p>This reference element is defined in an auxiliary coordinate system, the <em>natural coordinates</em> of the element. In 1D, we use a <span class="math notranslate nohighlight">\(\xi\)</span> as symbol for the natural coordinate. The reference element is defined on the domain <span class="math notranslate nohighlight">\(\xi\in[-1,1]\)</span>. We can define the shape functions here, with nodes at <span class="math notranslate nohighlight">\(\xi=-1\)</span>, <span class="math notranslate nohighlight">\(\xi=0\)</span> and <span class="math notranslate nohighlight">\(\xi=1\)</span>, the quadratic shape functions that satisfy the Kronecker delta property are given as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+N_1(\xi) &amp;= \frac12\xi^2-\frac12\xi \\
+N_2(\xi) &amp;= 1-\xi^2 \\
+N_3(\xi) &amp;= \frac12\xi^2+\frac12\xi \\
+\end{split}\]</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Exercise</div>
+<p class="sd-card-text">Show that the shape functions given above satisfy the partition of unity property and the Kronecker delta property (see <a class="reference internal" href="#TODO"><span class="xref myst">chapter 1</span></a>)</p>
+</div>
+</div>
+<p>Note that the weights given for numerical integration in <a class="reference internal" href="#TODO"><span class="xref myst">chapter 1</span></a>, for instance with two point Gauss integration at <span class="math notranslate nohighlight">\(\xi = -1/\sqrt{3}\)</span> and <span class="math notranslate nohighlight">\(\xi = 1/\sqrt{3}\)</span> with <span class="math notranslate nohighlight">\(w_1=w_2=1\)</span> is directly suitable for this reference element. However, in a finite element model, where we have multiple elements, we need to perform integration over the actual domain of the elements. Moreover, in most models we will need the derivatives of the shape functions, and these are derivatives with respect to global coordinates.</p>
+</section>
+<section id="requirements-for-the-mapping">
+<h3>Requirements for the mapping<a class="headerlink" href="#requirements-for-the-mapping" title="Permalink to this heading">#</a></h3>
+<p>In order to be able to use the reference element for evaluation of these shape function derivatives and for performing numerical integration, we need a relationship between the actual coordinates <span class="math notranslate nohighlight">\(x\)</span> of any physical element and the natural coordinates <span class="math notranslate nohighlight">\(\xi\)</span> of the reference element.</p>
+<p>In general, if we have an element defined over <span class="math notranslate nohighlight">\(x\in[a,b]\)</span>, we need to evaluate perform numerical integration from <span class="math notranslate nohighlight">\(x=a\)</span> to <span class="math notranslate nohighlight">\(x=b\)</span>. It is possible to rewrite an integral of any function <span class="math notranslate nohighlight">\(f(x)\)</span> over the element as an integral over the reference element as:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b f(x)\,dx = \int_{-1}^{-1} f(x(\xi)) \left|\pder{x}{\xi}\right|\,d\xi
+\]</div>
+<p>Addtionally, for evaluating the derivatives of shape functions, if the shape functions are defined in terms of <span class="math notranslate nohighlight">\(\xi\)</span> but we need derivatives with respect to <span class="math notranslate nohighlight">\(x\)</span>, the operation we need is:</p>
+<div class="math notranslate nohighlight">
+\[
+\pder{N_i}{x} = \pder{N_i}{\xi}\pder{\xi}{x}
+\]</div>
+<p>In both of these operations, a relation between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\xi\)</span> is needed. A relationship between two coordinate systems is called a <em>mapping</em>.</p>
+</section>
+<section id="how-the-mapping-is-constructed">
+<h3>How the mapping is constructed<a class="headerlink" href="#how-the-mapping-is-constructed" title="Permalink to this heading">#</a></h3>
+<p>For the 1D element, it is quite simple to construct a linear mapping between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\xi\)</span>, but with isoparametric mapping we will take an approach that can generalize well to higher dimensionality. In isoparametric mapping, we define <span class="math notranslate nohighlight">\(x(\xi)\)</span> as the sum over all nodes of <span class="math notranslate nohighlight">\(N_i\)</span> times the nodal coordinate <span class="math notranslate nohighlight">\(x_i\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-isoparametric-def-1d">
+<span class="eqno">(2.28)<a class="headerlink" href="#equation-isoparametric-def-1d" title="Permalink to this equation">#</a></span>\[
+x(\xi) = \sum_iN_i(\xi)x_i
+\]</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Exercise</div>
+<p class="sd-card-text">What mapping do you obtain with the reference shape functions given above for an element with nodal coordinates <span class="math notranslate nohighlight">\(x_1=2\)</span>, <span class="math notranslate nohighlight">\(x_2=4\)</span> and <span class="math notranslate nohighlight">\(x_3=6\)</span>?</p>
+<figure class="align-default" id="isoparametric-1d-example">
+<a class="reference internal image-reference" href="../_images/isoparametric_1d_example.png"><img alt="../_images/isoparametric_1d_example.png" src="../_images/isoparametric_1d_example.png" style="height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.17 </span><span class="caption-text">Example of isoparametric mapping for a 3-node line element</span><a class="headerlink" href="#isoparametric-1d-example" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(x=4+2\xi\)</span></p>
+</div>
+<p class="sd-card-text">Can you think of any sanity checks whether this results makes sense?</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p class="sd-card-text">Substitution of nodal coordinates in the reference element gives the physical coordinates of the nodes</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\xi=-1 \quad\rightarrow\quad x=2 \\
+\xi=0 \quad\rightarrow\quad x=4 \\
+\xi=1 \quad\rightarrow\quad x=6 
+\end{split}\]</div>
+<p class="sd-card-text">Also, the length of the element in physical domain is 4, while in the reference domain it has length 2. The difference is a factor 2. The scale factor of the length appears in the integral over the reference domain as the factor <span class="math notranslate nohighlight">\(\left|\pder{x}{\xi}\right|\)</span>, which indeed evaluates to 2.</p>
+</div>
+</div>
+</div>
+<p>The term <em>isoparametric</em> refers to the fact that the mapping of coordinates is <strong>parametrized</strong> in the <strong>same</strong> way as we have parametrized the unknown field, namely with shape functions and nodal values.</p>
+</section>
+<section id="the-jacobian">
+<h3>The Jacobian<a class="headerlink" href="#the-jacobian" title="Permalink to this heading">#</a></h3>
+<p>The term <span class="math notranslate nohighlight">\(\pder{x}{\xi}\)</span> is referred to as the Jacobian of the mapping. It follows from the definition in Equation~<a class="reference internal" href="#equation-isoparametric-def-1d">(2.28)</a> that this derivative can be evaluated for an element with given nodal coordinates <span class="math notranslate nohighlight">\(x_i\)</span> as:</p>
+<div class="math notranslate nohighlight">
+\[
+\pder{x}{\xi} = \sum_i\pder{N_i}{\xi}x_i
+\]</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Exercise</div>
+<p class="sd-card-text">For the example from the previous exercise, compute the Jacobian <span class="math notranslate nohighlight">\(\pder{x}{\xi}\)</span> following the definition above.</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p class="sd-card-text">Of course it is possible to take a direct derivative from the mapping found in the previous exercise, but here we use the formal approach</p>
+<div class="math notranslate nohighlight">
+\[
+\pder{x}{\xi} = \pder{N_1}{\xi}x_1 + \pder{N_2}{\xi}x_2 + \pder{N_3}{\xi}x_3 = \left(\xi-\frac12\right)\cdot 2 + (-2\xi)\cdot 4 + \left(\xi+\frac12\right)\cdot 6 = 2
+\]</div>
+<p class="sd-card-text">The result here is independent of <span class="math notranslate nohighlight">\(\xi\)</span>. Upon inspection of the performed operation it can be observed that this is the case if and only if <span class="math notranslate nohighlight">\(x_2=\frac12(x_1+x_3)\)</span>, i.e. if the mid-node of the physical element is positioned exactly at the middle of the element domain.</p>
+</div>
+</div>
+</div>
+<p>The Jacobian itself is immediately what is needed to perform the numerical integration over the reference domain. For evaluation of shape function derivatives, we need <span class="math notranslate nohighlight">\(\pder{\xi}{x}\)</span>, which is the inverse of the Jacobian. Introducing the symbol <span class="math notranslate nohighlight">\(J\)</span> for the Jacobian, we can write:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_a^b f(x)\,dx = \int_{-1}^1 f(x(\xi)) |J|\,d\xi
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+\pder{N_i}{x} = \frac{1}{J}\pder{N_i}{\xi}
+\]</div>
+</section>
+</section>
+<section id="isoparametric-mapping-in-higher-dimensions">
+<h2>Isoparametric mapping in higher dimensions<a class="headerlink" href="#isoparametric-mapping-in-higher-dimensions" title="Permalink to this heading">#</a></h2>
+<p>Isoparametric has been illustrated above for the case of 1D. It deserves to be said, however, that if there were only finite elements in 1D, the concept of isoparametric mapping would likely not be widespread. The approach really shines in higher dimensions, particularly on unstructured meshes. As an example, take the arbitrarily oriented quadrilateral element shown below.</p>
+<figure class="align-default" id="isoparametric-quad">
+<a class="reference internal image-reference" href="../_images/isoparametric_quad.png"><img alt="../_images/isoparametric_quad.png" src="../_images/isoparametric_quad.png" style="height: 320px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.18 </span><span class="caption-text">Example of isoparametric mapping for a 4-node quadrilateral element: reference quad (left) and physical counterpart (right)</span><a class="headerlink" href="#isoparametric-quad" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>There are now two natural coordinates <span class="math notranslate nohighlight">\(\xi\)</span> and <span class="math notranslate nohighlight">\(\eta\)</span>. The reference quad is defined over the domain <span class="math notranslate nohighlight">\((\xi\in[-1,1],\eta\in[-1,1])\)</span> and its physical counterpart is arbitrarily positioned in 2D space with nodal coordinates <span class="math notranslate nohighlight">\((x_i,y_i),\ i=1\ldots4\)</span>. Shape functions are defined once and for all for  the reference element as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+N_1 = \frac14(1-\xi)(1-\eta) \\
+N_2 = \frac14(1+\xi)(1-\eta) \\
+N_3 = \frac14(1+\xi)(1+\eta) \\
+N_4 = \frac14(1-\xi)(1+\eta) \\
+\end{split}\]</div>
+<p>The <span class="math notranslate nohighlight">\((\xi,\eta)\)</span>-coordinates of any point inside the reference element are mapped to <span class="math notranslate nohighlight">\((x,y)\)</span>-coordinates in physical space through a mapping:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+x(\xi,\eta) = \sum_iN_i(\xi,\eta)x_i \\
+y(\xi,\eta) = \sum_iN_i(\xi,\eta)y_i
+\end{split}\]</div>
+<p>The Jacobian is now a matrix, there are <span class="math notranslate nohighlight">\(2\times2\)</span> derivatives of physical coordinates with respect to natural coordinates:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{J} = \begin{bmatrix} \hpder{x}{\xi} &amp; \hpder{y}{\xi} \\ \hpder{x}{\eta} &amp; \hpder{y}{\eta} \end{bmatrix} \quad \text{with} \quad \pder{x}{\xi} = \sum_i\pder{N_i}{\xi}x_i \quad \text{etc.}
+\end{split}\]</div>
+<p>The inverse of the Jacobian matrix takes the place of <span class="math notranslate nohighlight">\(\frac1J\)</span> in the calculation of shape function derivatives with respect to <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix} \hpder{N_i}{x} \\ \hpder{N_i}{y} \end{bmatrix} = \mathbf{J}^{-1}\begin{bmatrix} \hpder{N_i}{\xi} \\ \hpder{N_i}{\eta} \end{bmatrix}
+\end{split}\]</div>
+<p>Numerical integration of a quantity <span class="math notranslate nohighlight">\(f\)</span> over the element domain <span class="math notranslate nohighlight">\(\Omega^\mathrm{e}\)</span> is performed over the reference element, now the correction involves the determinant of the Jacobian matrix</p>
+<div class="math notranslate nohighlight">
+\[
+\iint_{\Omega^\mathrm{e}} f\,dx\,dy = \int_{-1}^1\int_{-1}^1 f\left|\mathbf{J}\right|\,d\xi\,d\eta
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(\left|\mathbf{J}\right|=\det{\mathbf{J}}\)</span>. Now the integral on the right can be evaluated with numerical integration. This means that position of the integration points for numerical integration can be defined once and for all in the reference element, irrespective of the size and orientation of the element in physical space. The factor <span class="math notranslate nohighlight">\(\left|\mathbf{J}\right|\)</span>, which does depend on the coordinates of the nodes corrects for the size of the actual element. Similarly, shape functions never need to be defined as function of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. Only when we need their derivatives with respect to <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is a transformation needed, which the <span class="math notranslate nohighlight">\(\mathbf{J}^{-1}\)</span> takes care of.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Exercise</div>
+<p class="sd-card-text">Consider a distorted quadrilateral element with nodal coordinates</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x}_1 = (0,0), \quad\mathbf{x}_2=(4,0), \quad\mathbf{x}_3 = (6,2), \quad\mathbf{x}_4 = (0,5)\]</div>
+<figure class="align-default" id="isoparametric-2d-example">
+<a class="reference internal image-reference" href="../_images/isoparametric_2d_example.png"><img alt="../_images/isoparametric_2d_example.png" src="../_images/isoparametric_2d_example.png" style="height: 200px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.19 </span><span class="caption-text">4-node quadrilateral element in physical space</span><a class="headerlink" href="#isoparametric-2d-example" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p class="sd-card-text">Express <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> in terms of <span class="math notranslate nohighlight">\(\xi\)</span> and <span class="math notranslate nohighlight">\(\eta\)</span></p></li>
+<li><p class="sd-card-text">Evaluate the jacobian matrix <span class="math notranslate nohighlight">\(\mathbf{J}\)</span></p></li>
+</ul>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p class="sd-card-text">Coordinates are found with <span class="math notranslate nohighlight">\(x=\sum_iN_ix_i\)</span> and <span class="math notranslate nohighlight">\(y=\sum_iN_iy_i\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+x &amp;= \frac12(1+\xi)(5+\eta) \\
+y &amp;= \frac14(7-3\xi)(1+\eta)
+\end{split}\]</div>
+<p class="sd-card-text">The Jacobian matrix is found by taking derivatives of the expressions for <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> that were just obtained, or by multiplying the coordinates with the shape function derivatives. For this exercise, the first of these two approaches is most convenient, but the second one is used in finite element implementations as shape function derivatives can be pre-evaluated and hard-coded. Both result in the same Jacobian matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{J} = \begin{bmatrix}
+\frac12(5+\eta) &amp; -\frac34(1+\eta) \\
+\frac12(1+\xi) &amp; \frac14(7-3\xi)
+\end{bmatrix}
+\end{split}\]</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+        <script type="text/x-thebe-config">
+        {
+            "rootPath": "..",
+            "requestKernel": true,
+            "useJupyterLite": true,
+            "useBinder": false,
+            "kernelOptions": {
+                "path": "/"
+            },
+            "codeMirrorConfig": {
+                "theme": "default",
+                "mode": "python"
+            },
+            "mountRestartButton": false,
+            "mountRestartallButton": false
+        }
+        </script>
+        <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="poisson2d.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2.7. </span>Poisson equation in 2D</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../signal/intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Signal Processing</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isoparametric-mapping-on-a-3-node-line-element">Isoparametric mapping on a 3-node line element</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reference-element">The reference element</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements-for-the-mapping">Requirements for the mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-mapping-is-constructed">How the mapping is constructed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-jacobian">The Jacobian</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isoparametric-mapping-in-higher-dimensions">Isoparametric mapping in higher dimensions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MUDE Teachers and the Student Army, built with <a href="https://teachbooks.tudelft.nl/">TeachBooks</a> and <a href="https://jupyterbook.org/">Jupyter Book</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener noreferrer"">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt=""></a>
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on February 19, 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

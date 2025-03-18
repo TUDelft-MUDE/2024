@@ -1,0 +1,1244 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Fit AR(p) model &#8212; MUDE</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/code.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/grasple-exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/image_dark_mode.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_admonition_style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_dropdown_style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_code_header_style.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script src="../_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script defer="defer" src="../_static/refresh.js"></script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script defer="defer" src="../_static/sphinx-thebe-lite.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'time_series/ar_exercise';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/refresh.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.7. Forecasting" href="forecasting.html" />
+    <link rel="prev" title="4.6. AR process" href="ar.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="February 19, 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p>This is the draft book. The published version is at <a href='https://mude.citg.tudelft.nl/book' style='color: cyan;'>mude.citg.tudelft.nl/book</a></p></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/MUDE_Logo-small.png" class="logo__image only-light" alt="MUDE - Home"/>
+    <script>document.write(`<img src="../_static/MUDE_Logo-small.png" class="logo__image only-dark" alt="MUDE - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Q1 Topics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modelling/overview.html">1. Modelling Concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/classification.html">1.1. Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/decisions.html">1.2. Decisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/validate_verify.html">1.3. Calibration, Validation &amp; Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/gof.html">1.4. Goodness of Fit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../propagation_uncertainty/overview.html">2. Propagation of Uncertainty</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/00a_CovCorr.html">2.1. Random vectors, covariance and correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/00b_MultivariateNormal.html">2.2. Multivariate normal distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/uncertainty.html">2.3. Uncertainty Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/01_ErrorPropagation.html">2.4. Mean and variance propagation laws</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/02_LinearPropagation.html">2.5. Linear propagation laws of mean and covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../observation_theory/overview.html">3. Observation theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/01_Introduction.html">3.1. Introduction</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/02_LeastSquares.html">3.2. Least-squares estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/02_LeastSquares_NB.html">Notebook exercise: fitting different models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/03_WeightedLSQ.html">3.3. Weighted least-squares estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/03_Notebook_WLS.html">Notebook exercise: playing with the weights</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/04_BLUE.html">3.4. Best linear unbiased estimation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/05_Precision.html">3.5. Precision and confidence intervals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/05_Notebook_ConfInt.html">Notebook: factors influencing precision</a></li>
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/06_MLE.html">3.6. Maximum Likelihood Estimation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/07_NLSQ.html">3.7. Non-linear least-squares estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/07_Notebook_NLSQ.html">Notebook Gauss-Newton iteration for a point on a circle</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/08_Testing.html">3.8. Model testing</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/09_TestingSandM.html">3.9. Hypothesis testing for Sensing and Monitoring</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/09_Notebook_Testing.html">Notebook exercise: which melting model is better?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/09_Notebook_OMT.html">Notebook exercises: is my null hypothesis good enough?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/99_NotationFormulas.html">3.10. Notation and formulas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numerical_methods/overview.html">4. Numerical Modelling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/1-revision-of-concepts.html">4.1. Revision of Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/2-derivative.html">4.2. The First Derivative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/3-fdm-introduction.html">4.3. Finite Difference Method</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../numerical_methods/4-taylor-series-expansion.html">4.4. Taylor Series Expansion</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../numerical_methods/taylor-series-exercise.html">Exercises on Taylor expansion</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/5-numerical-integration.html">4.5. Numerical Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/6-initial-value-problem-singlestep.html">4.6. Initial Value Problem for ODE: single-step methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/7-multistep_and_multistage_methods.html">4.7. Multi-step and multi-stage methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/8-boundary-value-problem.html">4.8. Boundary-value Problems: second-order ODE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/9-starting_with_PDEs.html">4.9. Treatment of Partial Differential Equations: a start</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../probability/Reminder_intro.html">5. Univariate Continuous Distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../probability/PDF_CDF.html">5.1. PDF and CDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability/empirical.html">5.2. Empirical Distributions</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../probability/Param_distr.html">5.3. Parametric distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Gaussian.html">Revisiting Gaussian distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/other_distr.html">Non-Gaussian distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Uniform.html">Uniform distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Exponential.html">Exponential distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Gumbel.html">Gumbel distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Lognormal.html">Lognormal distribution</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../probability/summary.html">Summary of parametric distributions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../probability/fitting.html">5.4. Fitting parametric distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability/moments.html">Method of moments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/MLE_1.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/GOF.html">Goodness of Fit</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability/Loc-scale.html">5.5. Parameterization of continuous distributions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multivariate/overview.html">6. Multivariate Distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/events.html">6.1. Discrete Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/variables.html">6.2. Continuous Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/gaussian.html">6.3. Multivariate Gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/nongaussian.html">6.4. Non-Gaussian Distributions</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../multivariate/design.html">6.5. Practical Applications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../multivariate/design/one-random-variable.html">One Random Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multivariate/design/two-random-variables.html">Two Random Variables</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../multivariate/design/exercise.html">Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multivariate/design/exercise_solutions.html">Solutions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/test_pyvinecopulib.html">6.6. Test <code class="docutils literal notranslate"><span class="pre">pyvinecopulib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/test_bivariate.html">6.7. Test <code class="docutils literal notranslate"><span class="pre">bivariate</span></code></a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Q2 Topics</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fvm/intro.html">1. Finite Volume Method</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/getting_started_new.html">1.1. Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/fvm.html">1.2. Finite Volume Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/advection_1.html">1.3. Advection and Diffusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/unstructured_meshes.html">1.4. Unstructured Meshes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fem/intro.html">2. Finite Element Method</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fem/strong.html">2.1. Strong form of the 1D Poisson equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/weak.html">2.2. From strong to weak form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/discrete.html">2.3. From weak to discrete form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/matrix.html">2.4. Finite element implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/shape.html">2.5. Elements and shape functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/numerical_integration.html">2.6. Numerical integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/poisson2d.html">2.7. Poisson equation in 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/isoparametric_mapping.html">2.8. Isoparametric mapping</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../signal/intro.html">3. Signal Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../signal/fourier_real.html">3.1. Fourier Series</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../signal/fourier_nb.html">Square Wave Example</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/fourier_complex.html">3.2. Complex Fourier Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/fourier_transf.html">3.3. Fourier Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/sampling.html">3.4. Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/dft.html">3.5. Discrete Fourier Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/spectral_est.html">3.6. Spectral Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/videos.html">3.7. Supplementary Videos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">4. Time Series Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="components.html">4.1. Time Series components</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="exercise1.html">Components of time series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="noise.html">4.2. Noise and stochastic model</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="modelling.html">4.3. Time Series modelling and estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="fit_BLUE.html">Time series modelling</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="stationarity.html">4.4. Stationarity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acf.html">4.5. Autocovariance function (ACF)</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="ar.html">4.6. AutoRegressive (AR) process</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Fit AR(p) model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="forecasting.html">4.7. Time Series forecasting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../optimization/overview.html">5. Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/origins.html">5.1. Optimization origins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/general.html">5.2. Optimization basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/taxonomy.html">5.3. Taxonomy of optimization models</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../optimization/sand_and_clay.html">5.4. Example Linear Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/claysand.html">Implementation in Python</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/augmented_form.html">5.5. Augmented form of a mathematical program</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../optimization/sand_and_clay_simplex.html">5.6. SIMPLEX method</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/simplex_exercise.html">Exercise 1: Simple Exercise</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../optimization/airplane_exercise.html">Exercise 2: Cargo airplane (Optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../optimization/airplane_original.html">Cargo Airplane: Implementation in Python (Optional)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/integer_programming.html">5.7. Integer problems and solving with Branch-and-Bound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/some_constraints.html">5.8. Some constraints that take advantage of integer/binary variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/genetic_algorithm.html">5.9. Genetic Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../optimization/airlines.html">5.10. Airline Exercise (Optional)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../optimization/performance.html">5.11. Performance Considerations in LP (Optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/airlines_performance.html">Performance for airlines problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/performance_generic_LP.html">Performance for a Generic Linear Programming Problem</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../optimization/project.html">5.12. Road Network Design Problem (GA)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/Project_MILP.html">Python implementation with mixed integer linear program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../optimization/Project_GA.html">Python implementation with genetic algoritm</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../ml/overview.html">6. Machine Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ml/knn_interactive.html">6.1. Introduction and k-Nearest Neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/decision_theory_interactive.html">6.2. Decision Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/linear_models_interactive.html">6.3. Linear Basis Function Models and Regularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/ridge_sgd_interactive.html">6.4. Stochastic Gradient Descent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/nn_interactive.html">6.5. Feedforward Neural Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/review.html">6.6. Review and Quiz</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../eva/intro.html">7. Extreme Value Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/extreme.html">7.1. Concept of Extreme</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/RT.html">Return period</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/sampling.html">Sampling extremes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/BM_GEV.html">7.2. Block Maxima &amp; GEV</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/BM.html">Block Maxima</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Asymptotic.html">Asymptotic theorem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/GEV.html">GEV distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/RP_Binomial.html">RT &amp; Design Life</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/POT_GPD.html">7.3. POT &amp; GPD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/POT.html">Peak Over Threshold</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Poisson.html">Intermezzo: Poisson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Threshold.html">Parameters selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/GPD.html">Intro to GPD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/GPD2.html">Practicalities for GPD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/RP_Poisson.html">Revisiting RT</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/extra.html">7.4. Supplementary Material</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Bernoulli.html">Bernoulli and Binomial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/videos.html">EVA videos</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pd/intro.html">8. Risk Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pd/risk-analysis/overview.html">8.1. Risk Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-analysis/definition.html">Definition of Risk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-analysis/steps.html">Steps in a Risk Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-analysis/risk-curves.html">Risk Curve</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pd/risk-evaluation/overview.html">8.2. Risk Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-evaluation/decision.html">Decision Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-evaluation/cost-benefit.html">Cost Benefit Analysis</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../pd/risk-evaluation/econ-optimization.html">Economic Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../pd/risk-evaluation/example-dike-height.html">Optimization Example</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-evaluation/safety-standards.html">Safety Standards</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pd/exercises/overview.html">8.3. Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pd/exercises/exercise-fn-curve.html">FN Curve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/exercises/exercise-dam.html">Dam and River</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/exercises/exercise-paint.html">Paint System</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Programming</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_1.html">Week 1.1: Getting Started!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../programming/week_1_1/environments.html">Computers and Environments</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../external/learn-programming/book/computers.html">Computers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../external/learn-programming/book/environments.html">Computing Environments</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../programming/week_1_1/install.html">Software Installation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/install/python/miniconda.html">Install Miniconda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/common/hidden.html">Hidden Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/common/cli.html">Command Line Interface (CLI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/common/env_vars_windows.html">Environment Variables (Windows)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/install/ide/vsc.html">Visual Studio</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/ide/vsc/extensions.html">Extensions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../programming/week_1_1/files.html">Files and Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../programming/week_1_1/warmup.html">Python Warmup</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../programming/week_1_2.html">Week 1.2: Python Topics</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_3.html">Week 1.3: VS Code Live Share!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/install/ide/vsc/vs_live_share.html">Visual Studio Live Share</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_4.html">Week 1.4: Version control with Git!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/version_control/version_control.html">Version Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/install/git/intro.html">Install git</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../external/learn-programming/book/workflows/git/intro.html">Git workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/workflows/git/github.html">Git on GitHub</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/commits_remote.html">Making Commits to the Remote Repository (Web IDE)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/workflows/git/vscode.html">Git in VS code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/cloning.html">Cloning a Repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/commits_local.html">Making Commits to the Local Repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/fetch_pull.html">Fetch and Pull from the Remote Repository</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_5.html">Week 1.5: Collaboration with Git!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/workflows/git/branch_merge.html">Branching and merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/workflows/git/forking.html">Forking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/workflows/git/merge_conflicts.html">Merge conflicts</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_6.html">Week 1.6: Errors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/error_types.html">Error Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/traceback.html">The Python Traceback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/raise_errors.html">Raising errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/handling_errors.html">Handling Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/asserts.html">Assertions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_7.html">Week 1.7: OOP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/python/oop/classes.html">Classes and Object-Oriented Programming in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_8.html">Week 1.8: SymPy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/08/sympy.html">SymPy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimization/gurobi.html">Week 2.4: Gurobi installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamental Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_01a_PreMath.html">1. Vectors and matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_01b_PreMath.html">2. Vector spaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_01c_PreMath.html">3. System of linear equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_02_PreMath.html">4. Multivariate differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_03_PreMath.html">5. Taylor series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/prob-background.html">6. Probability axioms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/prob-rv.html">7. Random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_04_MeanVar.html">8. Expectation (mean) and variance</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fundamentals/prob_tables/overview.html">9. Probability Tables</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fundamentals/prob_tables/normal.html">9.1. Normal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fundamentals/prob_tables/chi2.html">9.2. Chi-Squared</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../probability/python.html">10. Probability in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/eemc-stuff.html">11. Additional topics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits and License</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://gitlab.tudelft.nl/mude/book/-/issues/new?issue[title]=Issue%20on%20page%20%2Ftime_series/ar_exercise.html&issue[description]=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/time_series/ar_exercise.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Fit AR(p) model</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="fit-ar-p-model">
+<h1>Fit AR(p) model<a class="headerlink" href="#fit-ar-p-model" title="Permalink to this heading">#</a></h1>
+<p>In this exercise, we will fit an AR(p) model to a time series.The timeseries is already stationary and we will use two different methods to choose the number of lag (p) to include. First we will start by loading and displaying the data.</p>
+<div class="cell tag_auto-execute-page tag_thebe-remove-input-init docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statsmodels.graphics.tsaplots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_acf</span><span class="p">,</span> <span class="n">plot_pacf</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">0.00000000e+00</span><span class="p">,</span>  <span class="mf">0.00000000e+00</span><span class="p">,</span>  <span class="mf">7.39366373e-01</span><span class="p">,</span>  <span class="mf">8.82012627e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.17941679e-01</span><span class="p">,</span>  <span class="mf">1.54974089e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.98443756e-02</span><span class="p">,</span>  <span class="mf">1.00141169e+00</span><span class="p">,</span>
+        <span class="mf">2.42524470e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.02361298e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.10553118e+00</span><span class="p">,</span>  <span class="mf">3.04987823e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">8.69761112e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.11315875e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.24734667e-01</span><span class="p">,</span>  <span class="mf">1.45309595e-01</span><span class="p">,</span>
+        <span class="mf">5.42097653e-01</span><span class="p">,</span>  <span class="mf">3.77506030e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.33921297e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.31148958e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.76689101e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.79235565e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.00350747e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.35241349e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">9.07637426e-01</span><span class="p">,</span>  <span class="mf">2.13326549e-01</span><span class="p">,</span>  <span class="mf">2.18065416e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.60757882e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.07263765e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.18111332e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.47885555e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.89930627e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.57038634e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.07430124e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.03020905e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.05763683e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">7.48698592e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.57544551e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.50491924e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.42908722e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.08312118e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.80363252e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.04630764e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.71038000e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.71349481e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.44771288e+00</span><span class="p">,</span>  <span class="mf">4.20877715e-01</span><span class="p">,</span>  <span class="mf">5.07187528e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">4.87173992e-01</span><span class="p">,</span>  <span class="mf">3.24049379e-01</span><span class="p">,</span>  <span class="mf">2.59529792e-01</span><span class="p">,</span>  <span class="mf">5.04614412e-01</span><span class="p">,</span>
+        <span class="mf">4.73901121e-01</span><span class="p">,</span>  <span class="mf">2.72281199e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.41652577e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.39176422e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">8.29335646e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.20523393e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.41985423e-02</span><span class="p">,</span>  <span class="mf">9.41730115e-02</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.50729414e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.74161867e-01</span><span class="p">,</span>  <span class="mf">2.01810837e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.17818122e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">5.92488929e-01</span><span class="p">,</span>  <span class="mf">1.07042695e+00</span><span class="p">,</span>  <span class="mf">4.37509451e-01</span><span class="p">,</span>  <span class="mf">7.22526958e-01</span><span class="p">,</span>
+        <span class="mf">1.22407607e+00</span><span class="p">,</span>  <span class="mf">7.70631751e-01</span><span class="p">,</span>  <span class="mf">1.50808058e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.50142466e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.73831479e-01</span><span class="p">,</span>  <span class="mf">1.35391870e+00</span><span class="p">,</span>  <span class="mf">2.18917967e+00</span><span class="p">,</span>  <span class="mf">2.57638726e+00</span><span class="p">,</span>
+        <span class="mf">2.70701733e+00</span><span class="p">,</span>  <span class="mf">1.36794873e+00</span><span class="p">,</span>  <span class="mf">1.29999210e+00</span><span class="p">,</span>  <span class="mf">1.91501107e+00</span><span class="p">,</span>
+        <span class="mf">1.59349872e+00</span><span class="p">,</span>  <span class="mf">1.97732807e+00</span><span class="p">,</span>  <span class="mf">2.49992433e+00</span><span class="p">,</span>  <span class="mf">1.93175636e+00</span><span class="p">,</span>
+        <span class="mf">1.47660557e+00</span><span class="p">,</span>  <span class="mf">1.17536071e+00</span><span class="p">,</span>  <span class="mf">1.39557491e+00</span><span class="p">,</span>  <span class="mf">1.44857054e+00</span><span class="p">,</span>
+        <span class="mf">7.89092903e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.46392931e-01</span><span class="p">,</span>  <span class="mf">2.95521216e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.08968239e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.85438702e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.58086137e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.09981434e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.05496939e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.64585529e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.96458235e-02</span><span class="p">,</span>  <span class="mf">3.53929808e-01</span><span class="p">,</span>  <span class="mf">1.58901411e+00</span><span class="p">,</span>
+        <span class="mf">9.53132950e-02</span><span class="p">,</span>  <span class="mf">7.67470550e-01</span><span class="p">,</span>  <span class="mf">1.15384857e+00</span><span class="p">,</span>  <span class="mf">7.96439922e-01</span><span class="p">,</span>
+        <span class="mf">9.76627268e-01</span><span class="p">,</span>  <span class="mf">3.47042888e-01</span><span class="p">,</span>  <span class="mf">1.00590245e+00</span><span class="p">,</span>  <span class="mf">1.50082738e-01</span><span class="p">,</span>
+        <span class="mf">2.37379710e-01</span><span class="p">,</span>  <span class="mf">1.96873095e+00</span><span class="p">,</span>  <span class="mf">2.20072042e+00</span><span class="p">,</span>  <span class="mf">1.56046852e+00</span><span class="p">,</span>
+        <span class="mf">6.64436129e-01</span><span class="p">,</span>  <span class="mf">2.96544445e-01</span><span class="p">,</span>  <span class="mf">1.72227831e+00</span><span class="p">,</span>  <span class="mf">1.10644286e+00</span><span class="p">,</span>
+        <span class="mf">1.63238235e+00</span><span class="p">,</span>  <span class="mf">6.63026552e-01</span><span class="p">,</span>  <span class="mf">3.61978366e-01</span><span class="p">,</span>  <span class="mf">6.45668467e-01</span><span class="p">,</span>
+        <span class="mf">1.27851822e+00</span><span class="p">,</span>  <span class="mf">2.65148989e+00</span><span class="p">,</span>  <span class="mf">9.99420989e-01</span><span class="p">,</span>  <span class="mf">3.58085372e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">4.62291606e-01</span><span class="p">,</span>  <span class="mf">9.37518000e-01</span><span class="p">,</span>  <span class="mf">1.23164122e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.12475856e-01</span><span class="p">,</span>
+        <span class="mf">1.36065286e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.16493968e-02</span><span class="p">,</span>  <span class="mf">6.69941343e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.42736465e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.34703063e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.67947236e+00</span><span class="p">,</span>  <span class="mf">5.69358500e-01</span><span class="p">,</span>  <span class="mf">5.83468985e-01</span><span class="p">,</span>
+        <span class="mf">7.41796103e-01</span><span class="p">,</span>  <span class="mf">6.39326772e-01</span><span class="p">,</span>  <span class="mf">2.10445565e-01</span><span class="p">,</span>  <span class="mf">3.92168977e-01</span><span class="p">,</span>
+        <span class="mf">6.40725851e-01</span><span class="p">,</span>  <span class="mf">8.99547148e-01</span><span class="p">,</span>  <span class="mf">1.00500576e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.71818439e-02</span><span class="p">,</span>
+        <span class="mf">4.04000299e-02</span><span class="p">,</span>  <span class="mf">8.70113665e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.44264848e-01</span><span class="p">,</span>  <span class="mf">5.39213359e-01</span><span class="p">,</span>
+        <span class="mf">6.66901278e-01</span><span class="p">,</span>  <span class="mf">8.72123995e-01</span><span class="p">,</span>  <span class="mf">1.84825136e+00</span><span class="p">,</span>  <span class="mf">1.10125095e+00</span><span class="p">,</span>
+        <span class="mf">9.95721987e-01</span><span class="p">,</span>  <span class="mf">6.26088972e-01</span><span class="p">,</span>  <span class="mf">7.62512607e-01</span><span class="p">,</span>  <span class="mf">1.16511511e-01</span><span class="p">,</span>
+        <span class="mf">4.22571492e-01</span><span class="p">,</span>  <span class="mf">9.89100398e-02</span><span class="p">,</span>  <span class="mf">5.49712966e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.56725388e-01</span><span class="p">,</span>
+        <span class="mf">4.27536063e-01</span><span class="p">,</span>  <span class="mf">2.05360843e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.64858058e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.69873034e-02</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">9.37568737e-01</span><span class="p">,</span>  <span class="mf">8.65612664e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.69365069e-01</span><span class="p">,</span>  <span class="mf">2.39337297e+00</span><span class="p">,</span>
+        <span class="mf">8.60106273e-01</span><span class="p">,</span>  <span class="mf">3.29178916e+00</span><span class="p">,</span>  <span class="mf">1.71736403e+00</span><span class="p">,</span>  <span class="mf">2.13874664e+00</span><span class="p">,</span>
+        <span class="mf">1.48955823e+00</span><span class="p">,</span>  <span class="mf">1.48006688e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.88803421e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.24234835e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.24331549e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.66509456e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.04246649e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.90451608e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">9.87961104e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.48066393e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.57398280e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.07591149e-01</span><span class="p">,</span>
+        <span class="mf">1.15083345e+00</span><span class="p">,</span>  <span class="mf">5.88506643e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.92900945e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.44438570e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">7.29310067e-01</span><span class="p">,</span>  <span class="mf">5.74169750e-01</span><span class="p">,</span>  <span class="mf">4.04520673e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.20288636e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.77120327e-02</span><span class="p">,</span>  <span class="mf">9.88213495e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.09190567e+00</span><span class="p">,</span>  <span class="mf">7.19825871e-02</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">9.84122442e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.80535953e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.14311755e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.47274166e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">7.56479222e-01</span><span class="p">,</span>  <span class="mf">1.08118071e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.57690388e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.57851451e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.31524418e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.40305337e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.54378176e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.84970651e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.32341947e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.60528868e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.02478175e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.51805873e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">6.37833606e-01</span><span class="p">,</span>  <span class="mf">2.76604125e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.33841731e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.36818872e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">5.72040718e-01</span><span class="p">,</span>  <span class="mf">6.55878864e-01</span><span class="p">,</span>  <span class="mf">1.13125989e+00</span><span class="p">,</span>  <span class="mf">2.20828257e+00</span><span class="p">,</span>
+        <span class="mf">1.08565693e+00</span><span class="p">,</span>  <span class="mf">1.28351412e-01</span><span class="p">,</span>  <span class="mf">5.46169855e-01</span><span class="p">,</span>  <span class="mf">5.93641545e-01</span><span class="p">,</span>
+        <span class="mf">6.04036418e-01</span><span class="p">,</span>  <span class="mf">3.49137797e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.83183726e-01</span><span class="p">,</span>  <span class="mf">6.16385128e-01</span><span class="p">,</span>
+        <span class="mf">2.10314828e-01</span><span class="p">,</span>  <span class="mf">3.45091013e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.13021032e-01</span><span class="p">,</span>  <span class="mf">1.26537948e+00</span><span class="p">,</span>
+        <span class="mf">7.35755004e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.91878585e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.02143047e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.41844559e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">9.04793546e-01</span><span class="p">,</span>  <span class="mf">9.84542133e-01</span><span class="p">,</span>  <span class="mf">4.52293503e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.17515258e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.38201270e-01</span><span class="p">,</span>  <span class="mf">2.09588612e-01</span><span class="p">,</span>  <span class="mf">3.10936455e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.13386042e-02</span><span class="p">,</span>
+        <span class="mf">4.45269097e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.22797128e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.25841101e-01</span><span class="p">,</span>  <span class="mf">6.68332290e-01</span><span class="p">,</span>
+        <span class="mf">2.14404817e+00</span><span class="p">,</span>  <span class="mf">6.70914150e-01</span><span class="p">,</span>  <span class="mf">1.79696828e+00</span><span class="p">,</span>  <span class="mf">2.49805512e+00</span><span class="p">,</span>
+        <span class="mf">3.64554459e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.28644444e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.09699150e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.03731317e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.96379156e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.38065556e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.82528623e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.02683833e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.51626243e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.08281555e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.61811653e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.08337884e-01</span><span class="p">,</span>
+        <span class="mf">6.78369204e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.07006199e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.79365880e-01</span><span class="p">,</span>  <span class="mf">2.51602954e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.39343464e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.05284048e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.06705460e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.86584542e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.45306112e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.49506393e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.64593592e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.01740934e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.77716519e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.71373930e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.03803161e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.20648230e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.03999481e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.91418930e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.91249144e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.44261622e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.50101351e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.25887947e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.40571889e+00</span><span class="p">,</span>  <span class="mf">4.88496184e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">8.47740317e-01</span><span class="p">,</span>  <span class="mf">2.53055261e-01</span><span class="p">,</span>  <span class="mf">4.07728654e-01</span><span class="p">,</span>  <span class="mf">3.71441178e-01</span><span class="p">,</span>
+        <span class="mf">2.60954268e-01</span><span class="p">,</span>  <span class="mf">6.91881170e-01</span><span class="p">,</span>  <span class="mf">1.35204560e+00</span><span class="p">,</span>  <span class="mf">1.66126779e+00</span><span class="p">,</span>
+        <span class="mf">3.87633110e-02</span><span class="p">,</span>  <span class="mf">5.74308554e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.90039426e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.51960048e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.40826500e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.29096877e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.51329551e-01</span><span class="p">,</span>  <span class="mf">7.01787314e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">6.57970553e-01</span><span class="p">,</span>  <span class="mf">6.63866169e-01</span><span class="p">,</span>  <span class="mf">3.83965676e-01</span><span class="p">,</span>  <span class="mf">9.80863226e-01</span><span class="p">,</span>
+        <span class="mf">1.26264195e+00</span><span class="p">,</span>  <span class="mf">1.60111452e+00</span><span class="p">,</span>  <span class="mf">1.71967437e+00</span><span class="p">,</span>  <span class="mf">1.27973984e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.32558645e-01</span><span class="p">,</span>  <span class="mf">1.04491727e+00</span><span class="p">,</span>  <span class="mf">1.02027173e+00</span><span class="p">,</span>  <span class="mf">1.30056175e+00</span><span class="p">,</span>
+        <span class="mf">1.24801760e+00</span><span class="p">,</span>  <span class="mf">1.83402451e+00</span><span class="p">,</span>  <span class="mf">1.53001108e+00</span><span class="p">,</span>  <span class="mf">1.71737846e+00</span><span class="p">,</span>
+        <span class="mf">1.57527834e+00</span><span class="p">,</span>  <span class="mf">2.04640540e+00</span><span class="p">,</span>  <span class="mf">2.42281956e+00</span><span class="p">,</span>  <span class="mf">8.27044471e-01</span><span class="p">,</span>
+        <span class="mf">2.10345979e+00</span><span class="p">,</span>  <span class="mf">1.06201511e+00</span><span class="p">,</span>  <span class="mf">1.47960807e+00</span><span class="p">,</span>  <span class="mf">9.71628403e-01</span><span class="p">,</span>
+        <span class="mf">5.21057069e-01</span><span class="p">,</span>  <span class="mf">5.03029167e-01</span><span class="p">,</span>  <span class="mf">4.21029664e-01</span><span class="p">,</span>  <span class="mf">1.10529512e+00</span><span class="p">,</span>
+        <span class="mf">6.54941435e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.79959006e-01</span><span class="p">,</span>  <span class="mf">8.01560793e-01</span><span class="p">,</span>  <span class="mf">3.78517418e-01</span><span class="p">,</span>
+        <span class="mf">5.08672026e-01</span><span class="p">,</span>  <span class="mf">1.68601802e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.90663606e-02</span><span class="p">,</span>  <span class="mf">1.62149508e+00</span><span class="p">,</span>
+        <span class="mf">1.45669361e+00</span><span class="p">,</span>  <span class="mf">1.24135471e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.00934966e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.13895360e-01</span><span class="p">,</span>
+        <span class="mf">4.83077266e-01</span><span class="p">,</span>  <span class="mf">4.50055520e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.17878557e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.26810617e-01</span><span class="p">,</span>
+        <span class="mf">7.11486395e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.66610081e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.00110856e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.59543090e-01</span><span class="p">,</span>
+        <span class="mf">3.69607167e-01</span><span class="p">,</span>  <span class="mf">1.05543185e+00</span><span class="p">,</span>  <span class="mf">1.27906214e+00</span><span class="p">,</span>  <span class="mf">1.23240685e+00</span><span class="p">,</span>
+        <span class="mf">2.09226813e+00</span><span class="p">,</span>  <span class="mf">8.90031863e-01</span><span class="p">,</span>  <span class="mf">2.22894835e+00</span><span class="p">,</span>  <span class="mf">6.97854347e-01</span><span class="p">,</span>
+        <span class="mf">1.09524514e+00</span><span class="p">,</span>  <span class="mf">3.24695184e-01</span><span class="p">,</span>  <span class="mf">7.28042788e-04</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.45720862e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">5.73334022e-02</span><span class="p">,</span>  <span class="mf">1.23575766e+00</span><span class="p">,</span>  <span class="mf">1.31635328e-01</span><span class="p">,</span>  <span class="mf">8.67518743e-01</span><span class="p">,</span>
+        <span class="mf">1.56059963e+00</span><span class="p">,</span>  <span class="mf">6.31070006e-01</span><span class="p">,</span>  <span class="mf">1.04464919e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.84947785e-01</span><span class="p">,</span>
+        <span class="mf">1.31704400e+00</span><span class="p">,</span>  <span class="mf">9.86125573e-01</span><span class="p">,</span>  <span class="mf">2.02759151e+00</span><span class="p">,</span>  <span class="mf">1.48625969e+00</span><span class="p">,</span>
+        <span class="mf">3.72770752e-02</span><span class="p">,</span>  <span class="mf">1.67338281e+00</span><span class="p">,</span>  <span class="mf">1.82601616e+00</span><span class="p">,</span>  <span class="mf">4.32808593e-01</span><span class="p">,</span>
+        <span class="mf">1.91126665e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.40124317e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.15394675e-01</span><span class="p">,</span>  <span class="mf">1.24704749e+00</span><span class="p">,</span>
+        <span class="mf">1.30533712e+00</span><span class="p">,</span>  <span class="mf">1.15308051e+00</span><span class="p">,</span>  <span class="mf">1.59741846e+00</span><span class="p">,</span>  <span class="mf">1.07918179e+00</span><span class="p">,</span>
+        <span class="mf">3.55408514e-01</span><span class="p">,</span>  <span class="mf">1.15370940e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.76059920e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.33802778e+00</span><span class="p">,</span>
+        <span class="mf">1.85639559e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.42649844e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.02996400e+00</span><span class="p">,</span>  <span class="mf">4.39484660e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.07934516e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.43198782e-01</span><span class="p">,</span>  <span class="mf">7.12058866e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.74227516e-01</span><span class="p">,</span>
+        <span class="mf">8.88699033e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.97313023e-01</span><span class="p">,</span>  <span class="mf">2.86881825e-01</span><span class="p">,</span>  <span class="mf">4.79528683e-01</span><span class="p">,</span>
+        <span class="mf">1.96059535e+00</span><span class="p">,</span>  <span class="mf">1.90794329e+00</span><span class="p">,</span>  <span class="mf">1.21424753e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.31731368e-03</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.57476964e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.54898612e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.55912921e-01</span><span class="p">,</span>  <span class="mf">4.82253263e-01</span><span class="p">,</span>
+        <span class="mf">7.82414953e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.16817948e-02</span><span class="p">,</span>  <span class="mf">1.02454754e-01</span><span class="p">,</span>  <span class="mf">4.75701199e-01</span><span class="p">,</span>
+        <span class="mf">2.87974276e-02</span><span class="p">,</span>  <span class="mf">7.23507213e-01</span><span class="p">,</span>  <span class="mf">1.11294268e+00</span><span class="p">,</span>  <span class="mf">1.54304889e+00</span><span class="p">,</span>
+        <span class="mf">2.55006078e+00</span><span class="p">,</span>  <span class="mf">1.97330796e+00</span><span class="p">,</span>  <span class="mf">4.55008481e-01</span><span class="p">,</span>  <span class="mf">9.08155981e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.16408466e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.11070592e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.19885254e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.49425998e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.70184461e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.33816807e+00</span><span class="p">,</span>  <span class="mf">9.85350424e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.17349272e-01</span><span class="p">,</span>
+        <span class="mf">9.88553840e-01</span><span class="p">,</span>  <span class="mf">3.70111247e-01</span><span class="p">,</span>  <span class="mf">9.00847240e-01</span><span class="p">,</span>  <span class="mf">1.63814995e-01</span><span class="p">,</span>
+        <span class="mf">1.36672484e+00</span><span class="p">,</span>  <span class="mf">1.06231592e+00</span><span class="p">,</span>  <span class="mf">6.86277219e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.36714690e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.10193654e-01</span><span class="p">,</span>  <span class="mf">1.03258012e+00</span><span class="p">,</span>  <span class="mf">8.99548082e-01</span><span class="p">,</span>  <span class="mf">9.98615963e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">6.21537335e-01</span><span class="p">,</span>  <span class="mf">5.45974283e-01</span><span class="p">,</span>  <span class="mf">7.76469620e-01</span><span class="p">,</span>  <span class="mf">1.50429680e+00</span><span class="p">,</span>
+        <span class="mf">7.48151842e-01</span><span class="p">,</span>  <span class="mf">4.43051388e-01</span><span class="p">,</span>  <span class="mf">8.08282554e-01</span><span class="p">,</span>  <span class="mf">4.68694570e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">9.76716836e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.65906274e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.79593683e-01</span><span class="p">,</span>  <span class="mf">9.32812962e-01</span><span class="p">,</span>
+        <span class="mf">1.09446918e+00</span><span class="p">,</span>  <span class="mf">1.53156737e+00</span><span class="p">,</span>  <span class="mf">6.07745371e-01</span><span class="p">,</span>  <span class="mf">8.90444322e-01</span><span class="p">,</span>
+        <span class="mf">2.58227806e-01</span><span class="p">,</span>  <span class="mf">1.08671023e+00</span><span class="p">,</span>  <span class="mf">1.96989982e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.81961888e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">9.03880880e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.70885459e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.65810797e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.29907694e-01</span><span class="p">,</span>
+        <span class="mf">4.06336577e-01</span><span class="p">,</span>  <span class="mf">4.78504065e-01</span><span class="p">,</span>  <span class="mf">1.27168476e-01</span><span class="p">,</span>  <span class="mf">1.46771856e+00</span><span class="p">,</span>
+        <span class="mf">1.36753502e+00</span><span class="p">,</span>  <span class="mf">4.02762296e-01</span><span class="p">,</span>  <span class="mf">3.64682830e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.78703131e-01</span><span class="p">,</span>
+        <span class="mf">2.96891803e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.54382156e-01</span><span class="p">,</span>  <span class="mf">1.28006210e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.86188078e-02</span><span class="p">,</span>
+        <span class="mf">1.20052445e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.66199770e-02</span><span class="p">,</span>  <span class="mf">6.87313607e-01</span><span class="p">,</span>  <span class="mf">7.05341388e-01</span><span class="p">,</span>
+        <span class="mf">1.09361043e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.62887584e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.02212099e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.98220516e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">6.35448516e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.23454870e+00</span><span class="p">,</span>  <span class="mf">3.30223301e-01</span><span class="p">,</span>  <span class="mf">6.36362445e-01</span><span class="p">,</span>
+        <span class="mf">5.95033506e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.21809241e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.01669089e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.83311223e+00</span><span class="p">,</span>
+        <span class="mf">7.05074907e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.14821554e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.09891995e-01</span><span class="p">,</span>  <span class="mf">8.46936249e-02</span><span class="p">,</span>
+        <span class="mf">9.89420750e-01</span><span class="p">,</span>  <span class="mf">1.19584073e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.55632428e-01</span><span class="p">,</span>  <span class="mf">1.78726604e+00</span><span class="p">,</span>
+        <span class="mf">1.15139811e+00</span><span class="p">,</span>  <span class="mf">7.30881522e-01</span><span class="p">,</span>  <span class="mf">3.73337741e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.84734893e-01</span><span class="p">,</span>
+        <span class="mf">9.15512809e-01</span><span class="p">,</span>  <span class="mf">3.48834785e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.83496242e-01</span><span class="p">,</span>  <span class="mf">1.44386150e+00</span><span class="p">,</span>
+        <span class="mf">9.40535741e-01</span><span class="p">,</span>  <span class="mf">1.61809060e+00</span><span class="p">,</span>  <span class="mf">5.90633602e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.81711114e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">5.43810530e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.47633330e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.08840745e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.12147676e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.93298030e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.81721802e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.60719118e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.87439117e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">4.42704828e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.71683303e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.09202014e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.01576221e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.00405087e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.35322370e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.55945639e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.93038555e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.77439000e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.31110363e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.11229932e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.53420963e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.54646158e+00</span><span class="p">,</span>  <span class="mf">1.30171409e-01</span><span class="p">,</span>  <span class="mf">9.58477732e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.67702799e-01</span><span class="p">,</span>
+        <span class="mf">1.07557175e-01</span><span class="p">,</span>  <span class="mf">9.39260555e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.01729680e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.51412913e-03</span><span class="p">,</span>
+        <span class="mf">2.50457369e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.93504732e-01</span><span class="p">,</span>  <span class="mf">7.66769888e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.91396297e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">6.23168011e-01</span><span class="p">,</span>  <span class="mf">5.56471001e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.47489436e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.80051893e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">9.29699644e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.86270863e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.03645146e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.59207517e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.51789958e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.17777627e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.44915841e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.82704891e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">7.77895523e-01</span><span class="p">,</span>  <span class="mf">4.24394846e-02</span><span class="p">,</span>  <span class="mf">6.39871136e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.25068603e-01</span><span class="p">,</span>
+        <span class="mf">1.70283470e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.04672894e-01</span><span class="p">,</span>  <span class="mf">7.57377629e-01</span><span class="p">,</span>  <span class="mf">2.81579728e-01</span><span class="p">,</span>
+        <span class="mf">9.00245371e-01</span><span class="p">,</span>  <span class="mf">4.38308567e-01</span><span class="p">,</span>  <span class="mf">6.62981478e-01</span><span class="p">,</span>  <span class="mf">2.26340506e-01</span><span class="p">,</span>
+        <span class="mf">6.55124877e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.74574465e-02</span><span class="p">,</span>  <span class="mf">5.83536959e-01</span><span class="p">,</span>  <span class="mf">3.30224150e-01</span><span class="p">,</span>
+        <span class="mf">1.74725260e+00</span><span class="p">,</span>  <span class="mf">2.92914951e-01</span><span class="p">,</span>  <span class="mf">6.53733549e-01</span><span class="p">,</span>  <span class="mf">1.90472489e+00</span><span class="p">,</span>
+        <span class="mf">2.13062770e+00</span><span class="p">,</span>  <span class="mf">8.29887814e-01</span><span class="p">,</span>  <span class="mf">1.78665718e+00</span><span class="p">,</span>  <span class="mf">3.36002901e+00</span><span class="p">,</span>
+        <span class="mf">1.80680569e+00</span><span class="p">,</span>  <span class="mf">7.24783016e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.31104542e-02</span><span class="p">,</span>  <span class="mf">1.06971812e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">7.92409025e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.12136978e-02</span><span class="p">,</span>  <span class="mf">1.36246834e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.96155791e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">5.17756929e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.53090799e-01</span><span class="p">,</span>  <span class="mf">1.27895232e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.14333497e-01</span><span class="p">,</span>
+        <span class="mf">5.69661453e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.30418263e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.20354967e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.69997976e-02</span><span class="p">,</span>
+        <span class="mf">1.25838428e+00</span><span class="p">,</span>  <span class="mf">7.67147245e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.96356797e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.25875722e-01</span><span class="p">,</span>
+        <span class="mf">9.13773378e-03</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.92841740e-01</span><span class="p">,</span>  <span class="mf">1.36680690e+00</span><span class="p">,</span>  <span class="mf">7.85367122e-02</span><span class="p">,</span>
+        <span class="mf">1.43978042e+00</span><span class="p">,</span>  <span class="mf">3.53036371e-01</span><span class="p">,</span>  <span class="mf">3.21726380e-01</span><span class="p">,</span>  <span class="mf">7.27328771e-01</span><span class="p">,</span>
+        <span class="mf">3.42772844e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.08014869e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.84040601e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.71464217e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.38824750e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.28809967e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.87057040e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.72010741e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.39459163e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.41007591e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.38221603e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.88021763e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.25018544e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.95854470e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.42330929e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.93677650e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.85864261e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.28733387e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.12822402e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.65251704e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.18254573e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.43695779e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.33016093e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.56150214e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.40580874e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.04801271e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.45886359e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.80283888e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">9.02308417e-01</span><span class="p">,</span>  <span class="mf">4.39017348e-02</span><span class="p">,</span>  <span class="mf">1.40193351e+00</span><span class="p">,</span>  <span class="mf">1.12539513e-04</span><span class="p">,</span>
+        <span class="mf">1.20803285e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.05656599e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.15697707e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.33205596e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.11363610e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.55571463e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.35843487e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.80555093e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.42667129e-01</span><span class="p">,</span>  <span class="mf">1.87343826e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.03622737e-01</span><span class="p">,</span>  <span class="mf">1.58042120e+00</span><span class="p">,</span>
+        <span class="mf">9.14429754e-01</span><span class="p">,</span>  <span class="mf">1.43619930e+00</span><span class="p">,</span>  <span class="mf">1.91061472e+00</span><span class="p">,</span>  <span class="mf">9.74028580e-01</span><span class="p">,</span>
+        <span class="mf">5.34409977e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.90812107e-01</span><span class="p">,</span>  <span class="mf">1.31103428e+00</span><span class="p">,</span>  <span class="mf">2.35584323e+00</span><span class="p">,</span>
+        <span class="mf">1.02766574e+00</span><span class="p">,</span>  <span class="mf">4.17273584e-01</span><span class="p">,</span>  <span class="mf">1.34848289e+00</span><span class="p">,</span>  <span class="mf">1.26365466e+00</span><span class="p">,</span>
+        <span class="mf">1.24666532e-02</span><span class="p">,</span>  <span class="mf">2.31648529e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.83896716e-01</span><span class="p">,</span>  <span class="mf">3.74971332e-01</span><span class="p">,</span>
+        <span class="mf">1.59599098e-01</span><span class="p">,</span>  <span class="mf">6.12558213e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.27835045e-02</span><span class="p">,</span>  <span class="mf">7.12749888e-01</span><span class="p">,</span>
+        <span class="mf">1.34679669e+00</span><span class="p">,</span>  <span class="mf">1.12912214e+00</span><span class="p">,</span>  <span class="mf">5.15484989e-01</span><span class="p">,</span>  <span class="mf">6.28624387e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.45869042e-01</span><span class="p">,</span>  <span class="mf">3.27209328e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.96825605e-01</span><span class="p">,</span>  <span class="mf">1.31898972e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.81544836e-01</span><span class="p">,</span>  <span class="mf">5.41585156e-01</span><span class="p">,</span>  <span class="mf">8.66005696e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.34887158e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.05298192e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.55200747e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.17742426e-02</span><span class="p">,</span>  <span class="mf">3.15934090e-01</span><span class="p">,</span>
+        <span class="mf">7.58516075e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.28638664e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.62368353e-01</span><span class="p">,</span>  <span class="mf">1.85925648e-01</span><span class="p">,</span>
+        <span class="mf">1.10367660e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.71440744e-02</span><span class="p">,</span>  <span class="mf">1.15255335e+00</span><span class="p">,</span>  <span class="mf">9.62837157e-01</span><span class="p">,</span>
+        <span class="mf">1.01530785e+00</span><span class="p">,</span>  <span class="mf">5.16531675e-01</span><span class="p">,</span>  <span class="mf">5.18742934e-01</span><span class="p">,</span>  <span class="mf">7.35507772e-01</span><span class="p">,</span>
+        <span class="mf">3.67891288e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.15120567e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.12922515e-01</span><span class="p">,</span>  <span class="mf">7.95935851e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">8.24176529e-01</span><span class="p">,</span>  <span class="mf">1.01923996e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.19323604e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.11150057e-01</span><span class="p">,</span>
+        <span class="mf">2.11116100e-01</span><span class="p">,</span>  <span class="mf">7.08622195e-01</span><span class="p">,</span>  <span class="mf">1.20049183e+00</span><span class="p">,</span>  <span class="mf">1.07098285e+00</span><span class="p">,</span>
+        <span class="mf">3.68214610e-01</span><span class="p">,</span>  <span class="mf">3.54257026e-01</span><span class="p">,</span>  <span class="mf">7.05818294e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.39895972e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.16645409e-01</span><span class="p">,</span>  <span class="mf">1.82229015e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.70677164e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.31566188e-01</span><span class="p">,</span>
+        <span class="mf">1.47087451e-01</span><span class="p">,</span>  <span class="mf">1.06149338e+00</span><span class="p">,</span>  <span class="mf">1.15550485e+00</span><span class="p">,</span>  <span class="mf">8.00273717e-01</span><span class="p">,</span>
+        <span class="mf">1.55176802e+00</span><span class="p">,</span>  <span class="mf">2.10226314e+00</span><span class="p">,</span>  <span class="mf">3.95218245e-01</span><span class="p">,</span>  <span class="mf">2.77919345e-01</span><span class="p">,</span>
+        <span class="mf">1.46034669e+00</span><span class="p">,</span>  <span class="mf">1.19407058e+00</span><span class="p">,</span>  <span class="mf">1.95311543e+00</span><span class="p">,</span>  <span class="mf">1.77257448e+00</span><span class="p">,</span>
+        <span class="mf">4.11952827e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.03775982e-01</span><span class="p">,</span>  <span class="mf">1.60578453e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.78448463e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">6.74402250e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.38429388e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.56971433e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.77622550e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.58961602e-01</span><span class="p">,</span>  <span class="mf">6.06878724e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.61909649e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.05580909e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">6.47796264e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.38091098e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.81668249e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.40749857e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">9.64560692e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.02942803e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.51032638e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.78485228e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.35448247e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.20396184e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.63593472e-01</span><span class="p">,</span>  <span class="mf">1.39960962e-01</span><span class="p">,</span>
+        <span class="mf">7.61197724e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.80842551e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.66113910e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.03078431e-02</span><span class="p">,</span>
+        <span class="mf">4.59656603e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.24886605e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.55849348e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.62076342e-01</span><span class="p">,</span>
+        <span class="mf">1.10954752e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.38955437e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.39143906e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.10682908e-01</span><span class="p">,</span>
+        <span class="mf">4.23887208e-01</span><span class="p">,</span>  <span class="mf">8.61515571e-01</span><span class="p">,</span>  <span class="mf">6.65772041e-01</span><span class="p">,</span>  <span class="mf">2.31012501e+00</span><span class="p">,</span>
+        <span class="mf">2.24641806e+00</span><span class="p">,</span>  <span class="mf">2.03232659e+00</span><span class="p">,</span>  <span class="mf">2.50357257e+00</span><span class="p">,</span>  <span class="mf">2.28339898e+00</span><span class="p">,</span>
+        <span class="mf">1.95069044e+00</span><span class="p">,</span>  <span class="mf">1.63523854e+00</span><span class="p">,</span>  <span class="mf">1.37286544e+00</span><span class="p">,</span>  <span class="mf">2.43219243e+00</span><span class="p">,</span>
+        <span class="mf">2.55092337e+00</span><span class="p">,</span>  <span class="mf">1.76595226e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.62412017e-02</span><span class="p">,</span>  <span class="mf">1.59579762e+00</span><span class="p">,</span>
+        <span class="mf">5.08483834e-01</span><span class="p">,</span>  <span class="mf">4.15151476e-01</span><span class="p">,</span>  <span class="mf">6.93189435e-01</span><span class="p">,</span>  <span class="mf">9.21821403e-01</span><span class="p">,</span>
+        <span class="mf">1.29025111e+00</span><span class="p">,</span>  <span class="mf">7.93774884e-02</span><span class="p">,</span>  <span class="mf">6.80210192e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.94808049e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.51609274e-01</span><span class="p">,</span>  <span class="mf">1.47062707e+00</span><span class="p">,</span>  <span class="mf">5.89348866e-01</span><span class="p">,</span>  <span class="mf">2.11627876e+00</span><span class="p">,</span>
+        <span class="mf">6.52185541e-01</span><span class="p">,</span>  <span class="mf">1.26132338e+00</span><span class="p">,</span>  <span class="mf">6.98691324e-01</span><span class="p">,</span>  <span class="mf">3.48855150e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.33109062e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.47342324e+00</span><span class="p">,</span>  <span class="mf">1.09013417e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.11974953e-02</span><span class="p">,</span>
+        <span class="mf">4.17028815e-01</span><span class="p">,</span>  <span class="mf">3.76022584e-01</span><span class="p">,</span>  <span class="mf">2.70449474e-01</span><span class="p">,</span>  <span class="mf">5.42963217e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.79830499e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.99062723e-01</span><span class="p">,</span>  <span class="mf">1.69929223e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.13573591e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">7.45367870e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.69028857e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.33629353e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.03188486e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.81089730e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.49790534e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.99281756e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.81819238e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.47388646e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.81642763e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.32034092e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.46747332e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">6.22658430e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.70254068e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.25268470e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.51126224e-01</span><span class="p">,</span>
+        <span class="mf">1.12351647e+00</span><span class="p">,</span>  <span class="mf">7.41654766e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.56727439e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.36036952e-01</span><span class="p">,</span>
+        <span class="mf">3.79299501e-01</span><span class="p">,</span>  <span class="mf">6.10543198e-01</span><span class="p">,</span>  <span class="mf">1.04647975e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.26770962e-02</span><span class="p">,</span>
+        <span class="mf">9.10931820e-01</span><span class="p">,</span>  <span class="mf">2.88667270e-01</span><span class="p">,</span>  <span class="mf">1.43372970e+00</span><span class="p">,</span>  <span class="mf">8.83455823e-01</span><span class="p">,</span>
+        <span class="mf">7.40768747e-01</span><span class="p">,</span>  <span class="mf">1.02984778e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.46106980e-01</span><span class="p">,</span>  <span class="mf">3.70249466e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">5.48979579e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.64568153e+00</span><span class="p">,</span>  <span class="mf">3.48798867e-01</span><span class="p">,</span>  <span class="mf">2.17017707e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.37474632e-01</span><span class="p">,</span>  <span class="mf">9.53455170e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.06646698e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.85727930e-01</span><span class="p">,</span>
+        <span class="mf">3.17707117e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.46688323e-01</span><span class="p">,</span>  <span class="mf">5.72143464e-01</span><span class="p">,</span>  <span class="mf">1.22252222e+00</span><span class="p">,</span>
+        <span class="mf">6.49886478e-01</span><span class="p">,</span>  <span class="mf">1.11199626e+00</span><span class="p">,</span>  <span class="mf">2.98352821e+00</span><span class="p">,</span>  <span class="mf">2.47769388e+00</span><span class="p">,</span>
+        <span class="mf">1.18576263e+00</span><span class="p">,</span>  <span class="mf">5.33805666e-01</span><span class="p">,</span>  <span class="mf">2.10096587e+00</span><span class="p">,</span>  <span class="mf">1.59574729e+00</span><span class="p">,</span>
+        <span class="mf">1.31832487e+00</span><span class="p">,</span>  <span class="mf">3.84267233e-01</span><span class="p">,</span>  <span class="mf">1.18968620e+00</span><span class="p">,</span>  <span class="mf">2.39827315e+00</span><span class="p">,</span>
+        <span class="mf">1.53984467e+00</span><span class="p">,</span>  <span class="mf">1.73049810e+00</span><span class="p">,</span>  <span class="mf">3.03364076e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.57727641e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">6.75717011e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.05885226e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.91154756e-01</span><span class="p">,</span>  <span class="mf">2.93195048e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">8.55754313e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.03581616e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.70712707e-01</span><span class="p">,</span>  <span class="mf">4.37962580e-01</span><span class="p">,</span>
+        <span class="mf">8.03218956e-01</span><span class="p">,</span>  <span class="mf">5.72756250e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.09349498e-01</span><span class="p">,</span>  <span class="mf">6.93622013e-01</span><span class="p">,</span>
+        <span class="mf">1.52325261e+00</span><span class="p">,</span>  <span class="mf">7.46335450e-01</span><span class="p">,</span>  <span class="mf">1.04179128e+00</span><span class="p">,</span>  <span class="mf">6.93180243e-01</span><span class="p">,</span>
+        <span class="mf">6.15903795e-01</span><span class="p">,</span>  <span class="mf">1.72977174e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.97999867e-02</span><span class="p">,</span>  <span class="mf">2.50893420e+00</span><span class="p">,</span>
+        <span class="mf">1.78139472e+00</span><span class="p">,</span>  <span class="mf">1.30976033e+00</span><span class="p">,</span>  <span class="mf">5.56591118e-01</span><span class="p">,</span>  <span class="mf">2.35011371e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.85188166e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.47569045e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.24490106e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.24913641e-02</span><span class="p">,</span>
+        <span class="mf">7.26347917e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.93962450e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.13628472e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.70710503e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.41297811e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.05695681e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.89106682e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.76022961e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">6.35076122e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.20968410e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.66157685e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.78915712e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">7.35596283e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.08503954e-01</span><span class="p">,</span>  <span class="mf">1.98219493e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.47695316e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">4.35808912e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.13217275e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.08390134e+00</span><span class="p">,</span>  <span class="mf">8.56553143e-01</span><span class="p">,</span>
+        <span class="mf">5.19019577e-01</span><span class="p">,</span>  <span class="mf">4.48514228e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.49052322e-01</span><span class="p">,</span>  <span class="mf">1.64228141e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.38744808e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.94880817e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.09619291e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.23149681e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">2.29443615e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.24490557e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.41361200e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.14823308e+00</span><span class="p">,</span>
+        <span class="mf">6.35477621e-01</span><span class="p">,</span>  <span class="mf">5.99331444e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.51869204e-01</span><span class="p">,</span>  <span class="mf">4.57836691e-01</span><span class="p">,</span>
+        <span class="mf">1.36644386e+00</span><span class="p">,</span>  <span class="mf">1.99158100e+00</span><span class="p">,</span>  <span class="mf">1.05917265e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.20214682e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">3.03986356e-01</span><span class="p">,</span>  <span class="mf">9.21210441e-01</span><span class="p">,</span>  <span class="mf">1.86984440e+00</span><span class="p">,</span>  <span class="mf">7.19809989e-01</span><span class="p">,</span>
+        <span class="mf">2.24614850e-01</span><span class="p">,</span>  <span class="mf">1.83986293e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.98484113e-01</span><span class="p">,</span>  <span class="mf">8.48969414e-01</span><span class="p">,</span>
+        <span class="mf">1.46145990e+00</span><span class="p">,</span>  <span class="mf">4.64898199e-01</span><span class="p">,</span>  <span class="mf">5.95667867e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.65015303e-01</span><span class="p">,</span>
+        <span class="mf">4.98926356e-01</span><span class="p">,</span>  <span class="mf">1.27696976e+00</span><span class="p">,</span>  <span class="mf">6.31788684e-01</span><span class="p">,</span>  <span class="mf">9.02383220e-01</span><span class="p">,</span>
+        <span class="mf">9.09245114e-02</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.33510548e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.73376882e-01</span><span class="p">,</span>  <span class="mf">4.20514784e-01</span><span class="p">,</span>
+        <span class="mf">4.00816394e-01</span><span class="p">,</span>  <span class="mf">4.23429604e-01</span><span class="p">,</span>  <span class="mf">7.03190294e-01</span><span class="p">,</span>  <span class="mf">2.45607983e-01</span><span class="p">,</span>
+        <span class="mf">1.12766363e-01</span><span class="p">,</span>  <span class="mf">2.29990495e-01</span><span class="p">,</span>  <span class="mf">1.44303637e-01</span><span class="p">,</span>  <span class="mf">2.98763762e-01</span><span class="p">,</span>
+        <span class="mf">1.66542808e+00</span><span class="p">,</span>  <span class="mf">2.09103268e+00</span><span class="p">,</span>  <span class="mf">1.90449043e+00</span><span class="p">,</span>  <span class="mf">1.72099303e+00</span><span class="p">,</span>
+        <span class="mf">1.25933300e+00</span><span class="p">,</span>  <span class="mf">2.29352112e+00</span><span class="p">,</span>  <span class="mf">1.97652899e-01</span><span class="p">,</span>  <span class="mf">1.17981554e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.11019238e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.31291763e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.81943208e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.57380538e+00</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">8.01543386e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.57373293e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.11527712e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.17852491e+00</span><span class="p">,</span>
+        <span class="mf">4.34070610e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.47518014e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.21053098e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.52856246e-01</span><span class="p">,</span>
+       <span class="o">-</span><span class="mf">1.25192446e+00</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.30987448e-01</span><span class="p">,</span>  <span class="mf">2.71523161e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.02593613e+00</span><span class="p">,</span>
+        <span class="mf">4.19178470e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.32333953e-01</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.02741725e-01</span><span class="p">,</span>  <span class="mf">1.18590220e+00</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plot data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Generated stationary Time Series&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e452fe781badb3784b03a9e7dce2870269c73b258f5d9c4b55c16bc691fdace2.png" src="../_images/e452fe781badb3784b03a9e7dce2870269c73b258f5d9c4b55c16bc691fdace2.png" />
+</div>
+</div>
+<p>Next we can use <code class="docutils literal notranslate"><span class="pre">plot_acf</span></code> to plot the autocorrelation function of the time series. From the resulting plot we can see that that there is autocorrelation present in the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the ACF of the time series</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plot_acf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c6b3fcd91a90d53ea7e4f2e04e3531d1f4dab66f79937f00f954717b07c8d961.png" src="../_images/c6b3fcd91a90d53ea7e4f2e04e3531d1f4dab66f79937f00f954717b07c8d961.png" />
+</div>
+</div>
+<p>To make sure that we have selected the correct number of lags, we can test for significance using the likelihood ratio test (LRT). LRT is similar to the GLRT from chapter 3, but now we have made some assumptions on the standard deviations of the observations. We will apply the LRT to the AR(1) vs AR(2) and AR(2) vs AR(3) models.</p>
+<p>The AR(1), AR(2) and AR(3) models are defined as follows:</p>
+<p>AR(1): <span class="math notranslate nohighlight">\(S_t = \phi_1 S_{t-1} + \epsilon_t\)</span></p>
+<p>AR(2): <span class="math notranslate nohighlight">\(S_t = \phi_1 S_{t-1} + \phi_2 S_{t-2} + \epsilon_t\)</span></p>
+<p>AR(3): <span class="math notranslate nohighlight">\(S_t = \phi_1 S_{t-1} + \phi_2 S_{t-2} + \phi_3 S_{t-3} + \epsilon_t\)</span></p>
+<p>Since we need <span class="math notranslate nohighlight">\(S_{t-3}\)</span> we will have <span class="math notranslate nohighlight">\(y = S[3:]\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">chi2</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">s3</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># AR(1) model</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">s1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+<span class="n">phi_ar1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X1</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">X1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">e1</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">X1</span> <span class="o">@</span> <span class="n">phi_ar1</span>
+<span class="n">rss1</span> <span class="o">=</span> <span class="n">e1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">e1</span>
+
+<span class="c1"># AR(2) model</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">))</span>
+<span class="n">phi_ar2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X2</span><span class="p">)</span> <span class="o">@</span> <span class="n">X2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
+<span class="n">e2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">X2</span> <span class="o">@</span> <span class="n">phi_ar2</span>
+<span class="n">rss2</span> <span class="o">=</span> <span class="n">e2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">e2</span>
+
+<span class="c1"># AR(3) model</span>
+<span class="n">X3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">))</span>
+<span class="n">phi_ar3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X3</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X3</span><span class="p">)</span> <span class="o">@</span> <span class="n">X3</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
+<span class="n">e3</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">X3</span> <span class="o">@</span> <span class="n">phi_ar3</span>
+<span class="n">rss3</span> <span class="o">=</span> <span class="n">e3</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">e3</span>
+
+<span class="c1"># test ar(1) vs ar(2) using log likelihood ratio test</span>
+<span class="n">dof</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">crit</span> <span class="o">=</span> <span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">dof</span><span class="p">)</span>
+<span class="n">test_stat</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">rss1</span> <span class="o">/</span> <span class="n">rss2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;AR(1) vs AR(2) test statistic:&#39;</span><span class="p">,</span> <span class="n">test_stat</span><span class="p">,</span> <span class="s1">&#39;Critical value:&#39;</span><span class="p">,</span> <span class="n">crit</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">test_stat</span> <span class="o">&gt;</span> <span class="n">crit</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reject AR(1) in favor of AR(2)&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fail to reject AR(1)&#39;</span><span class="p">)</span>
+
+<span class="c1"># test ar(2) vs ar(3) using log likelihood ratio test</span>
+<span class="n">dof</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">crit</span> <span class="o">=</span> <span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">dof</span><span class="p">)</span>
+<span class="n">test_stat</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">rss2</span> <span class="o">/</span> <span class="n">rss3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;AR(2) vs AR(3) test statistic:&#39;</span><span class="p">,</span> <span class="n">test_stat</span><span class="p">,</span> <span class="s1">&#39;Critical value:&#39;</span><span class="p">,</span> <span class="n">crit</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">test_stat</span> <span class="o">&gt;</span> <span class="n">crit</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reject AR(2) in favor of AR(3)&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Fail to reject AR(2)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AR(1) vs AR(2) test statistic: 65.33452260973363 Critical value: 3.841458820694124
+Reject AR(1) in favor of AR(2)
+AR(2) vs AR(3) test statistic: 3.515371361537304 Critical value: 3.841458820694124
+Fail to reject AR(2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>From the LRT results we can see that an AR(2) model is the best fit for the data. Finally we will fit the AR(2) model to the data and plot the residuals. The residuals should be white noise, which is confirmed by the ACF plots of the residuals. Plotting</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot the residuals</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;AR(2) Residuals&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plot_acf</span><span class="p">(</span><span class="n">e2</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+
+<span class="n">sigma_e2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span>
+<span class="n">var_phi2</span> <span class="o">=</span> <span class="n">sigma_e2</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X2</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X2</span><span class="p">)</span>
+<span class="n">sigma_phi2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">var_phi2</span><span class="p">))</span>
+
+<span class="c1"># print the AR(2) coefficients with confidence intervals</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;AR(2) Coefficients:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Phi_1 = &#39;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">phi_ar2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span> <span class="s1">&#39;+/-&#39;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="mf">1.96</span> <span class="o">*</span> <span class="n">sigma_phi2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Phi_2 = &#39;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">phi_ar2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">4</span><span class="p">),</span> <span class="s1">&#39;+/-&#39;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="mf">1.96</span> <span class="o">*</span> <span class="n">sigma_phi2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AR(2) Coefficients:
+Phi_1 =  0.4961 +/- 0.0601
+Phi_2 =  0.2523 +/- 0.0602
+</pre></div>
+</div>
+<img alt="../_images/341ef521c7a3ba6717e3f8d115226523f213773681f6763f9321aa698ffd56e1.png" src="../_images/341ef521c7a3ba6717e3f8d115226523f213773681f6763f9321aa698ffd56e1.png" />
+</div>
+</div>
+</section>
+
+        <script type="text/x-thebe-config">
+        {
+            "rootPath": "..",
+            "requestKernel": true,
+            "useJupyterLite": true,
+            "useBinder": false,
+            "kernelOptions": {
+                "path": "/"
+            },
+            "codeMirrorConfig": {
+                "theme": "default",
+                "mode": "python"
+            },
+            "mountRestartButton": false,
+            "mountRestartallButton": false
+        }
+        </script>
+        <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ar.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4.6. </span>AR process</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="forecasting.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4.7. </span>Forecasting</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MUDE Teachers and the Student Army, built with <a href="https://teachbooks.tudelft.nl/">TeachBooks</a> and <a href="https://jupyterbook.org/">Jupyter Book</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener noreferrer"">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt=""></a>
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on February 19, 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

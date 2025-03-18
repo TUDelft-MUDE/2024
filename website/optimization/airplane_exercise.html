@@ -1,0 +1,1171 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Exercise 2: Cargo airplane (Optional) &#8212; MUDE</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/code.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/grasple-exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/image_dark_mode.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_admonition_style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_dropdown_style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/fix_code_header_style.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js"></script>
+    <script src="../_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script defer="defer" src="../_static/refresh.js"></script>
+    <script>const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script defer="defer" src="../_static/sphinx-thebe-lite.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'optimization/airplane_exercise';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/refresh.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cargo Airplane: Implementation in Python (Optional)" href="airplane_original.html" />
+    <link rel="prev" title="Exercise 1: Simple Exercise" href="simplex_exercise.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="February 19, 2025"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><p>This is the draft book. The published version is at <a href='https://mude.citg.tudelft.nl/book' style='color: cyan;'>mude.citg.tudelft.nl/book</a></p></div>
+</aside>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/MUDE_Logo-small.png" class="logo__image only-light" alt="MUDE - Home"/>
+    <script>document.write(`<img src="../_static/MUDE_Logo-small.png" class="logo__image only-dark" alt="MUDE - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Q1 Topics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modelling/overview.html">1. Modelling Concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/classification.html">1.1. Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/decisions.html">1.2. Decisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/validate_verify.html">1.3. Calibration, Validation &amp; Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modelling/gof.html">1.4. Goodness of Fit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../propagation_uncertainty/overview.html">2. Propagation of Uncertainty</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/00a_CovCorr.html">2.1. Random vectors, covariance and correlation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/00b_MultivariateNormal.html">2.2. Multivariate normal distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/uncertainty.html">2.3. Uncertainty Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/01_ErrorPropagation.html">2.4. Mean and variance propagation laws</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../propagation_uncertainty/02_LinearPropagation.html">2.5. Linear propagation laws of mean and covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../observation_theory/overview.html">3. Observation theory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/01_Introduction.html">3.1. Introduction</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/02_LeastSquares.html">3.2. Least-squares estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/02_LeastSquares_NB.html">Notebook exercise: fitting different models</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/03_WeightedLSQ.html">3.3. Weighted least-squares estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/03_Notebook_WLS.html">Notebook exercise: playing with the weights</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/04_BLUE.html">3.4. Best linear unbiased estimation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/05_Precision.html">3.5. Precision and confidence intervals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/05_Notebook_ConfInt.html">Notebook: factors influencing precision</a></li>
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/06_MLE.html">3.6. Maximum Likelihood Estimation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/07_NLSQ.html">3.7. Non-linear least-squares estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/07_Notebook_NLSQ.html">Notebook Gauss-Newton iteration for a point on a circle</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/08_Testing.html">3.8. Model testing</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../observation_theory/09_TestingSandM.html">3.9. Hypothesis testing for Sensing and Monitoring</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/09_Notebook_Testing.html">Notebook exercise: which melting model is better?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../observation_theory/09_Notebook_OMT.html">Notebook exercises: is my null hypothesis good enough?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../observation_theory/99_NotationFormulas.html">3.10. Notation and formulas</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../numerical_methods/overview.html">4. Numerical Modelling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/1-revision-of-concepts.html">4.1. Revision of Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/2-derivative.html">4.2. The First Derivative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/3-fdm-introduction.html">4.3. Finite Difference Method</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../numerical_methods/4-taylor-series-expansion.html">4.4. Taylor Series Expansion</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../numerical_methods/taylor-series-exercise.html">Exercises on Taylor expansion</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/5-numerical-integration.html">4.5. Numerical Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/6-initial-value-problem-singlestep.html">4.6. Initial Value Problem for ODE: single-step methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/7-multistep_and_multistage_methods.html">4.7. Multi-step and multi-stage methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/8-boundary-value-problem.html">4.8. Boundary-value Problems: second-order ODE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../numerical_methods/9-starting_with_PDEs.html">4.9. Treatment of Partial Differential Equations: a start</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../probability/Reminder_intro.html">5. Univariate Continuous Distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../probability/PDF_CDF.html">5.1. PDF and CDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability/empirical.html">5.2. Empirical Distributions</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../probability/Param_distr.html">5.3. Parametric distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Gaussian.html">Revisiting Gaussian distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/other_distr.html">Non-Gaussian distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Uniform.html">Uniform distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Exponential.html">Exponential distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Gumbel.html">Gumbel distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/Lognormal.html">Lognormal distribution</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../probability/summary.html">Summary of parametric distributions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../probability/fitting.html">5.4. Fitting parametric distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability/moments.html">Method of moments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/MLE_1.html">Maximum Likelihood Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability/GOF.html">Goodness of Fit</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability/Loc-scale.html">5.5. Parameterization of continuous distributions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multivariate/overview.html">6. Multivariate Distributions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/events.html">6.1. Discrete Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/variables.html">6.2. Continuous Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/gaussian.html">6.3. Multivariate Gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/nongaussian.html">6.4. Non-Gaussian Distributions</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../multivariate/design.html">6.5. Practical Applications</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../multivariate/design/one-random-variable.html">One Random Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../multivariate/design/two-random-variables.html">Two Random Variables</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../multivariate/design/exercise.html">Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../multivariate/design/exercise_solutions.html">Solutions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/test_pyvinecopulib.html">6.6. Test <code class="docutils literal notranslate"><span class="pre">pyvinecopulib</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multivariate/test_bivariate.html">6.7. Test <code class="docutils literal notranslate"><span class="pre">bivariate</span></code></a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Q2 Topics</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fvm/intro.html">1. Finite Volume Method</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/getting_started_new.html">1.1. Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/fvm.html">1.2. Finite Volume Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/advection_1.html">1.3. Advection and Diffusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fvm/unstructured_meshes.html">1.4. Unstructured Meshes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fem/intro.html">2. Finite Element Method</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fem/strong.html">2.1. Strong form of the 1D Poisson equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/weak.html">2.2. From strong to weak form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/discrete.html">2.3. From weak to discrete form</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/matrix.html">2.4. Finite element implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/shape.html">2.5. Elements and shape functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/numerical_integration.html">2.6. Numerical integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/poisson2d.html">2.7. Poisson equation in 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fem/isoparametric_mapping.html">2.8. Isoparametric mapping</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../signal/intro.html">3. Signal Processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../signal/fourier_real.html">3.1. Fourier Series</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../signal/fourier_nb.html">Square Wave Example</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/fourier_complex.html">3.2. Complex Fourier Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/fourier_transf.html">3.3. Fourier Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/sampling.html">3.4. Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/dft.html">3.5. Discrete Fourier Transform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/spectral_est.html">3.6. Spectral Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../signal/videos.html">3.7. Supplementary Videos</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../time_series/intro.html">4. Time Series Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../time_series/components.html">4.1. Time Series components</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../time_series/exercise1.html">Components of time series</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_series/noise.html">4.2. Noise and stochastic model</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../time_series/modelling.html">4.3. Time Series modelling and estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../time_series/fit_BLUE.html">Time series modelling</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_series/stationarity.html">4.4. Stationarity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_series/acf.html">4.5. Autocovariance function (ACF)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../time_series/ar.html">4.6. AutoRegressive (AR) process</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../time_series/ar_exercise.html">Fit AR(p) model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../time_series/forecasting.html">4.7. Time Series forecasting</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="overview.html">5. Optimization</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="origins.html">5.1. Optimization origins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general.html">5.2. Optimization basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="taxonomy.html">5.3. Taxonomy of optimization models</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="sand_and_clay.html">5.4. Example Linear Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="claysand.html">Implementation in Python</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="augmented_form.html">5.5. Augmented form of a mathematical program</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="sand_and_clay_simplex.html">5.6. SIMPLEX method</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="simplex_exercise.html">Exercise 1: Simple Exercise</a></li>
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">Exercise 2: Cargo airplane (Optional)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="airplane_original.html">Cargo Airplane: Implementation in Python (Optional)</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="integer_programming.html">5.7. Integer problems and solving with Branch-and-Bound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="some_constraints.html">5.8. Some constraints that take advantage of integer/binary variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="genetic_algorithm.html">5.9. Genetic Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="airlines.html">5.10. Airline Exercise (Optional)</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="performance.html">5.11. Performance Considerations in LP (Optional)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="airlines_performance.html">Performance for airlines problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance_generic_LP.html">Performance for a Generic Linear Programming Problem</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="project.html">5.12. Road Network Design Problem (GA)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Project_MILP.html">Python implementation with mixed integer linear program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Project_GA.html">Python implementation with genetic algoritm</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../ml/overview.html">6. Machine Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ml/knn_interactive.html">6.1. Introduction and k-Nearest Neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/decision_theory_interactive.html">6.2. Decision Theory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/linear_models_interactive.html">6.3. Linear Basis Function Models and Regularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/ridge_sgd_interactive.html">6.4. Stochastic Gradient Descent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/nn_interactive.html">6.5. Feedforward Neural Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ml/review.html">6.6. Review and Quiz</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../eva/intro.html">7. Extreme Value Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/extreme.html">7.1. Concept of Extreme</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/RT.html">Return period</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/sampling.html">Sampling extremes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/BM_GEV.html">7.2. Block Maxima &amp; GEV</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/BM.html">Block Maxima</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Asymptotic.html">Asymptotic theorem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/GEV.html">GEV distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/RP_Binomial.html">RT &amp; Design Life</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/POT_GPD.html">7.3. POT &amp; GPD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/POT.html">Peak Over Threshold</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Poisson.html">Intermezzo: Poisson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Threshold.html">Parameters selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/GPD.html">Intro to GPD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/GPD2.html">Practicalities for GPD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/RP_Poisson.html">Revisiting RT</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../eva/extra.html">7.4. Supplementary Material</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../eva/Bernoulli.html">Bernoulli and Binomial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eva/videos.html">EVA videos</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pd/intro.html">8. Risk Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pd/risk-analysis/overview.html">8.1. Risk Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-analysis/definition.html">Definition of Risk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-analysis/steps.html">Steps in a Risk Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-analysis/risk-curves.html">Risk Curve</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pd/risk-evaluation/overview.html">8.2. Risk Evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-evaluation/decision.html">Decision Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-evaluation/cost-benefit.html">Cost Benefit Analysis</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../pd/risk-evaluation/econ-optimization.html">Economic Optimization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../pd/risk-evaluation/example-dike-height.html">Optimization Example</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/risk-evaluation/safety-standards.html">Safety Standards</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../pd/exercises/overview.html">8.3. Exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pd/exercises/exercise-fn-curve.html">FN Curve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/exercises/exercise-dam.html">Dam and River</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pd/exercises/exercise-paint.html">Paint System</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Programming</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_1.html">Week 1.1: Getting Started!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../programming/week_1_1/environments.html">Computers and Environments</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../external/learn-programming/book/computers.html">Computers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../external/learn-programming/book/environments.html">Computing Environments</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../programming/week_1_1/install.html">Software Installation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/install/python/miniconda.html">Install Miniconda</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/common/hidden.html">Hidden Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/common/cli.html">Command Line Interface (CLI)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/common/env_vars_windows.html">Environment Variables (Windows)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/install/ide/vsc.html">Visual Studio</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/install/ide/vsc/extensions.html">Extensions</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../programming/week_1_1/files.html">Files and Folders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../programming/week_1_1/warmup.html">Python Warmup</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../programming/week_1_2.html">Week 1.2: Python Topics</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_3.html">Week 1.3: VS Code Live Share!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/install/ide/vsc/vs_live_share.html">Visual Studio Live Share</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_4.html">Week 1.4: Version control with Git!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/version_control/version_control.html">Version Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/install/git/intro.html">Install git</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../external/learn-programming/book/workflows/git/intro.html">Git workflow</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/workflows/git/github.html">Git on GitHub</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/commits_remote.html">Making Commits to the Remote Repository (Web IDE)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../external/learn-programming/book/workflows/git/vscode.html">Git in VS code</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/cloning.html">Cloning a Repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/commits_local.html">Making Commits to the Local Repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../external/learn-programming/book/workflows/git/fetch_pull.html">Fetch and Pull from the Remote Repository</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_5.html">Week 1.5: Collaboration with Git!</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/workflows/git/branch_merge.html">Branching and merging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/workflows/git/forking.html">Forking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/workflows/git/merge_conflicts.html">Merge conflicts</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_6.html">Week 1.6: Errors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/error_types.html">Error Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/traceback.html">The Python Traceback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/raise_errors.html">Raising errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/handling_errors.html">Handling Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/09/asserts.html">Assertions</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_7.html">Week 1.7: OOP</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-programming/book/python/oop/classes.html">Classes and Object-Oriented Programming in Python</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../programming/week_1_8.html">Week 1.8: SymPy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external/learn-python/book/08/sympy.html">SymPy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="gurobi.html">Week 2.4: Gurobi installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamental Concepts</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_01a_PreMath.html">1. Vectors and matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_01b_PreMath.html">2. Vector spaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_01c_PreMath.html">3. System of linear equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_02_PreMath.html">4. Multivariate differentiation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_03_PreMath.html">5. Taylor series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/prob-background.html">6. Probability axioms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/prob-rv.html">7. Random variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/00_04_MeanVar.html">8. Expectation (mean) and variance</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../fundamentals/prob_tables/overview.html">9. Probability Tables</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../fundamentals/prob_tables/normal.html">9.1. Normal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fundamentals/prob_tables/chi2.html">9.2. Chi-Squared</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../probability/python.html">10. Probability in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fundamentals/eemc-stuff.html">11. Additional topics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits and License</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://gitlab.tudelft.nl/mude/book/-/issues/new?issue[title]=Issue%20on%20page%20%2Foptimization/airplane_exercise.html&issue[description]=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/optimization/airplane_exercise.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exercise 2: Cargo airplane (Optional)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#original-problem">Original problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1">Task 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2">Task 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3">Task 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4">Task 4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-1">Challenge 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Task 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Task 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Task 3</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-2">Challenge 2</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Task 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Task 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Task 3</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-3">Challenge 3:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Task 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Task 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Task 3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="exercise-2-cargo-airplane-optional">
+<h1>Exercise 2: Cargo airplane (Optional)<a class="headerlink" href="#exercise-2-cargo-airplane-optional" title="Permalink to this heading">#</a></h1>
+<div class="tip dropdown admonition">
+<p class="admonition-title">MUDE Exam Information</p>
+<p>For the exam, you are expected to have a clear understanding behind the Simplex method and how to do it. you will not need to do the calculations by hand in the exam or on Friday’s assignment.</p>
+</div>
+<section id="original-problem">
+<h2>Original problem<a class="headerlink" href="#original-problem" title="Permalink to this heading">#</a></h2>
+<p>A cargo airplane has three compartments for storing freight: Front, central and rear. Each one of those compartments has the following limitations in weight and space:</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>Compartment</p></th>
+<th class="head"><p>Weight (<span class="math notranslate nohighlight">\(\text{ton}\)</span>)</p></th>
+<th class="text-right head"><p>Volume (<span class="math notranslate nohighlight">\(\text{m}^3\)</span>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Front</p></td>
+<td><p>8</p></td>
+<td class="text-right"><p>12000</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Central</p></td>
+<td><p>12</p></td>
+<td class="text-right"><p>10000</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Rear</p></td>
+<td><p>14</p></td>
+<td class="text-right"><p>6000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>There are four cargo types, and the following maximum cargo (of each type) is available to be transported from a warehouse:</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>Cargo</p></th>
+<th class="head"><p>Maximum cargo available (<span class="math notranslate nohighlight">\(\text{ton}\)</span>)</p></th>
+<th class="head"><p>Unit Volume (<span class="math notranslate nohighlight">\(\cfrac{\text{m}^3}{\text{ton}}\)</span>)</p></th>
+<th class="text-right head"><p>Unit profit (<span class="math notranslate nohighlight">\(\cfrac{\text{€}}{\text{ton}}\)</span>)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Type I</p></td>
+<td><p>18</p></td>
+<td><p>180</p></td>
+<td class="text-right"><p>590</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Type II</p></td>
+<td><p>14</p></td>
+<td><p>250</p></td>
+<td class="text-right"><p>580</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Type III</p></td>
+<td><p>20</p></td>
+<td><p>300</p></td>
+<td class="text-right"><p>580</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Type IV</p></td>
+<td><p>12</p></td>
+<td><p>80</p></td>
+<td class="text-right"><p>600</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="task-1">
+<h3>Task 1<a class="headerlink" href="#task-1" title="Permalink to this heading">#</a></h3>
+<p>Build the mathematical programming model in order to define the amount of cargo of each type that should be transported and how it should be distributed in order to be efficient during the flight</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p><strong>Decision variables</strong></p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p></p></th>
+<th class="head"><p>Front</p></th>
+<th class="head"><p>Center</p></th>
+<th class="text-right head"><p>Rear</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Type I</p></td>
+<td><p><span class="math notranslate nohighlight">\(x_{11}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(x_{12}\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(x_{13}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Type II</p></td>
+<td><p><span class="math notranslate nohighlight">\(x_{21}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(x_{22}\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(x_{23}\)</span></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Type III</p></td>
+<td><p><span class="math notranslate nohighlight">\(x_{31}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(x_{32}\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(x_{33}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Type IV</p></td>
+<td><p><span class="math notranslate nohighlight">\(x_{41}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(x_{42}\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(x_{43}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math notranslate nohighlight">\(x_{ij}\)</span>: weight of cargo of type <span class="math notranslate nohighlight">\(i\)</span> in position <span class="math notranslate nohighlight">\(i\)</span> in the airplane
+with <span class="math notranslate nohighlight">\( i \in  1,2,3,4\)</span> and <span class="math notranslate nohighlight">\( j \in 1,2,3 \)</span>
+Note: you can use as unit of the variables the volume too but in that case the constraints are going to be slightly different</p>
+<p><strong>Objective</strong></p>
+<p>If we define <span class="math notranslate nohighlight">\(P_i\)</span> as the profit obtained for one ton of cargo of type  <span class="math notranslate nohighlight">\( i \in  1,2,3,4\)</span> then the objective function is to maximize the profit:</p>
+<div class="math notranslate nohighlight">
+\[\max \left( Z \right) = \sum\limits_{i = 1}^4 {\sum\limits_{j = 1}^3 {{P_i}{x_{ij}}} } \]</div>
+<div class="math notranslate nohighlight">
+\[{P_i} = \left[ {590},  {580},  {580},  {600} \right]\]</div>
+<p><strong>Constraints</strong></p>
+<p>Weight available to be transported at the warehouses:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+{x_{11}} + {x_{12}} + {x_{13}} \le 18
+\\
+{x_{21}} + {x_{22}} + {x_{23}} \le 14
+\\
+{x_{31}} + {x_{32}} + {x_{33}} \le 20
+\\
+{x_{41}} + {x_{42}} + {x_{43}} \le 12
+\end{align*}\end{split}\]</div>
+<p>Weight limits on the compartments:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+{x_{11}} + {x_{21}} + {x_{31}} + {x_{41}} \le 8
+\\
+{x_{12}} + {x_{22}} + {x_{32}} + {x_{42}} \le 12
+\\
+{x_{13}} + {x_{23}} + {x_{33}} + {x_{43}} \le 14
+\end{align*}\end{split}\]</div>
+<p>Volume limits on the compartments:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}180{x_{11}} + 250{x_{21}} + 300{x_{31}} + 80{x_{41}} \le 12000
+\\
+180{x_{12}} + 250{x_{22}} + 300{x_{32}} + 80{x_{42}} \le 10000
+\\
+180{x_{13}} + 250{x_{23}} + 300{x_{33}} + 80{x_{43}} \le 6000
+\end{align*}\end{split}\]</div>
+<p><strong>Variables domain</strong></p>
+<div class="math notranslate nohighlight">
+\[{x_{ij}} \ge 0\]</div>
+</div>
+</section>
+<section id="task-2">
+<h3>Task 2<a class="headerlink" href="#task-2" title="Permalink to this heading">#</a></h3>
+<p>Model the problem in Python using Gurobi.</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>The implementation is shown <a class="reference internal" href="airplane_original.html"><span class="std std-doc">here</span></a>.</p>
+</div>
+</section>
+<section id="task-3">
+<h3>Task 3<a class="headerlink" href="#task-3" title="Permalink to this heading">#</a></h3>
+<iframe src="https://tudelft.h5p.com/content/1292132997115766237/embed" aria-label="Airplane 1" width="1088" height="637" frameborder="0" allowfullscreen="allowfullscreen" allow="autoplay *; geolocation *; microphone *; camera *; midi *; encrypted-media *"></iframe><script src="https://tudelft.h5p.com/js/h5p-resizer.js" charset="UTF-8"></script>
+</section>
+<section id="task-4">
+<h3>Task 4<a class="headerlink" href="#task-4" title="Permalink to this heading">#</a></h3>
+<p>What is the distribution of cargo for the optimal solution?</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<figure class="align-default" id="id10">
+<a class="reference internal image-reference" href="../_images/airplane1.png"><img alt="../_images/airplane1.png" src="../_images/airplane1.png" style="height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.29 </span><span class="caption-text">Distribution airplane problem</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="challenges">
+<h2>Challenges<a class="headerlink" href="#challenges" title="Permalink to this heading">#</a></h2>
+<section id="challenge-1">
+<h3>Challenge 1<a class="headerlink" href="#challenge-1" title="Permalink to this heading">#</a></h3>
+<p>For efficiency purposes, the total weight transported in all compartments must be the same.</p>
+<section id="id1">
+<h4>Task 1<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>How do you change the model?</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>Additional constraints:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+{x_{11}} + {x_{21}} + {x_{31}} + {x_{41}} = {x_{12}} + {x_{22}} + {x_{32}} + {x_{42}}
+\\
+{x_{12}} + {x_{22}} + {x_{32}} + {x_{42}} = {x_{13}} + {x_{23}} + {x_{33}} + {x_{43}}
+\end{align*}\end{split}\]</div>
+</div>
+</section>
+<section id="id2">
+<h4>Task 2<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<iframe src="https://tudelft.h5p.com/content/1292133034173142987/embed" aria-label="Airplane 2" width="1088" height="637" frameborder="0" allowfullscreen="allowfullscreen" allow="autoplay *; geolocation *; microphone *; camera *; midi *; encrypted-media *"></iframe><script src="https://tudelft.h5p.com/js/h5p-resizer.js" charset="UTF-8"></script>
+</section>
+<section id="id3">
+<h4>Task 3<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<p>What is the distribution of cargo for the optimal solution?</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<figure class="align-default" id="id11">
+<a class="reference internal image-reference" href="../_images/airplane2.png"><img alt="../_images/airplane2.png" src="../_images/airplane2.png" style="height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.30 </span><span class="caption-text">Distribution airplane problem challenge 1</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="challenge-2">
+<h3>Challenge 2<a class="headerlink" href="#challenge-2" title="Permalink to this heading">#</a></h3>
+<p>The weight of type I must be double the Type II and III together.</p>
+<section id="id4">
+<h4>Task 1<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<p>How do you change the model?</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>Additional constraint:</p>
+<div class="math notranslate nohighlight">
+\[{x_{11}} + {x_{12}} + {x_{13}} = 2\left( {{x_{21}} + {x_{22}} + {x_{23}}} \right) + 2\left( {{x_{31}} + {x_{32}} + {x_{33}}} \right)\]</div>
+</div>
+</section>
+<section id="id5">
+<h4>Task 2<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<iframe src="https://tudelft.h5p.com/content/1292133035681412197/embed" aria-label="Airplane 3" width="1088" height="637" frameborder="0" allowfullscreen="allowfullscreen" allow="autoplay *; geolocation *; microphone *; camera *; midi *; encrypted-media *"></iframe><script src="https://tudelft.h5p.com/js/h5p-resizer.js" charset="UTF-8"></script>
+</section>
+<section id="id6">
+<h4>Task 3<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<p>What is the distribution of cargo for the optimal solution?</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<figure class="align-default" id="id12">
+<a class="reference internal image-reference" href="../_images/airplane3.png"><img alt="../_images/airplane3.png" src="../_images/airplane3.png" style="height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.31 </span><span class="caption-text">Distribution airplane problem challenge 2</span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="challenge-3">
+<h3>Challenge 3:<a class="headerlink" href="#challenge-3" title="Permalink to this heading">#</a></h3>
+<p>The weight of cargo in the frontal area must be at least double the cargo in the rear and central areas together.</p>
+<section id="id7">
+<h4>Task 1<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<p>How do you change the model?</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>Additional constraint:</p>
+<div class="math notranslate nohighlight">
+\[{x_{11}} + {x_{21}} + {x_{31}} + {x_{41}} \ge 2\left( {{x_{12}} + {x_{22}} + {x_{32}} + {x_{42}}} \right) + 2\left( {{x_{13}} + {x_{23}} + {x_{33}} + {x_{43}}} \right)\]</div>
+</div>
+</section>
+<section id="id8">
+<h4>Task 2<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<iframe src="https://tudelft.h5p.com/content/1292133036522455457/embed" aria-label="Airplane 4" width="1088" height="637" frameborder="0" allowfullscreen="allowfullscreen" allow="autoplay *; geolocation *; microphone *; camera *; midi *; encrypted-media *"></iframe><script src="https://tudelft.h5p.com/js/h5p-resizer.js" charset="UTF-8"></script>
+</section>
+<section id="id9">
+<h4>Task 3<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<p>What is the distribution of cargo for the optimal solution?</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<figure class="align-default" id="id13">
+<a class="reference internal image-reference" href="../_images/airplane4.png"><img alt="../_images/airplane4.png" src="../_images/airplane4.png" style="height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.32 </span><span class="caption-text">Distribution airplane problem challenge 3</span><a class="headerlink" href="#id13" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+        <script type="text/x-thebe-config">
+        {
+            "rootPath": "..",
+            "requestKernel": true,
+            "useJupyterLite": true,
+            "useBinder": false,
+            "kernelOptions": {
+                "path": "/"
+            },
+            "codeMirrorConfig": {
+                "theme": "default",
+                "mode": "python"
+            },
+            "mountRestartButton": false,
+            "mountRestartallButton": false
+        }
+        </script>
+        <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="simplex_exercise.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Exercise 1: Simple Exercise</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="airplane_original.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Cargo Airplane: Implementation in Python (Optional)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#original-problem">Original problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-1">Task 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-2">Task 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-3">Task 3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-4">Task 4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges">Challenges</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-1">Challenge 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Task 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Task 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Task 3</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-2">Challenge 2</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Task 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Task 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Task 3</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge-3">Challenge 3:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Task 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Task 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Task 3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MUDE Teachers and the Student Army, built with <a href="https://teachbooks.tudelft.nl/">TeachBooks</a> and <a href="https://jupyterbook.org/">Jupyter Book</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener noreferrer"">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt=""></a>
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on February 19, 2025.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
