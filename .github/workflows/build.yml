@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  PRIMARY_BRANCH: ${{ 'main' }}
+  PRIMARY_BRANCH: ${{ 'homepage' }}
   GH_TOKEN: ${{ github.token }}
 
 jobs:
